@@ -1,8 +1,9 @@
+@use "../../style/partials/_variable" as *;
 .dark-mode-toggle {
   margin: 10px;
   padding: 5px 10px;
-  background-color: #3498db;
+  background-color: $primary-color;
   border: none;
-  color: #ecf0f1;
+  color: $button-text;
   cursor: pointer;
 }

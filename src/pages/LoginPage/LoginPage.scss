@@ -1,0 +1,87 @@
+@use "../../style/partials/__variable" as *;
+@use "../../style/partials/__mixin" as *;
+@use "../../style/partials/__typography" as *;
+@use "../../style/partials/__reset" as *;
+.login {
+  font-family: "prata";
+  height: 100vh;
+  &--dark {
+    background-color: $background-dark;
+    color: $text-secondary;
+    .login__form {
+      background-color: lighten($background-dark, 10%);
+    }
+    span {
+      color: $button-text;
+    }
+  }
+  &--light {
+    background-color: $background-light;
+    color: $text-primary;
+    .login__form {
+      background-color: darken($background-light, 10%);
+    }
+  }
+  &__form {
+    font-size: 0.75rem;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    @include tablet {
+      width: 700px;
+    }
+  }
+  &__title-container {
+    margin-bottom: 20px;
+    @include center;
+    &-text {
+      font-size: 1.5rem;
+      width: 90px;
+    }
+  }
+  &__field {
+    margin-bottom: 15px;
+    &-label {
+      font-size: 0.75rem;
+      width: 100%;
+    }
+    &-input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+      border: none;
+      background-color: $input-background;
+      &:focus {
+        border: 1px solid $accent-color;
+      }
+    }
+    &-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: $secondary-color;
+      border: none;
+      border-radius: 5px;
+      color: $button-text;
+      cursor: pointer;
+    }
+    &-register {
+      font-size: 1rem;
+      cursor: pointer;
+      &-text {
+        color: $secondary-color;
+        text-decoration: underline;
+      }
+    }
+  }
+  &__show-password {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    input {
+      margin-right: 5px;
+    }
+  }
+}

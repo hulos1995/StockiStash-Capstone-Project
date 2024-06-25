@@ -1,6 +1,5 @@
 import "./DarkMode.scss";
-
-const DarkModeToggle = ({ isDarkMode, toggleDarkMode }) => {
+const DarkMode = ({ isDarkMode, toggleDarkMode }) => {
   return (
     <button className="dark-mode-toggle" onClick={toggleDarkMode}>
       {isDarkMode ? "Light Mode" : "Dark Mode"}
@@ -8,4 +7,4 @@ const DarkModeToggle = ({ isDarkMode, toggleDarkMode }) => {
   );
 };
 
-export default DarkModeToggle;
+export default DarkMode;

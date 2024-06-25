@@ -1,7 +1,6 @@
 import { useState } from "react";
 import DarkMode from "../../components/DarkMode/DarkMode";
 import "./RegisterPage.scss";
-
 const RegisterPage = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [formData, setFormData] = useState({
@@ -12,17 +11,18 @@ const RegisterPage = () => {
     confirmPassword: "",
     role: "manager",
   });
-
+  const [showPassword, setShowPassword] = useState(false);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
   const handleRegister = () => {
     console.log("Registering user:", formData);
   };
-
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <div
       className={`register ${
@@ -36,11 +36,11 @@ const RegisterPage = () => {
         </div>
         <form>
           <div className="register__field">
-            <label className="register__field-user" htmlFor="firstname">
+            <label className="register__field-label" htmlFor="firstname">
               First Name
             </label>
             <input
-              className="register__field-userName"
+              className="register__field-input"
               type="text"
               id="firstname"
               name="firstname"
@@ -49,11 +49,11 @@ const RegisterPage = () => {
             />
           </div>
           <div className="register__field">
-            <label className="register__field-user" htmlFor="lastname">
+            <label className="register__field-label" htmlFor="lastname">
               Last Name
             </label>
             <input
-              className="register__field-userName"
+              className="register__field-input"
               type="text"
               id="lastname"
               name="lastname"
@@ -62,11 +62,11 @@ const RegisterPage = () => {
             />
           </div>
           <div className="register__field">
-            <label className="register__field-user" htmlFor="username">
+            <label className="register__field-label" htmlFor="username">
               Username
             </label>
             <input
-              className="register__field-userName"
+              className="register__field-input"
               type="text"
               id="username"
               name="username"
@@ -75,12 +75,12 @@ const RegisterPage = () => {
             />
           </div>
           <div className="register__field">
-            <label className="register__field-password" htmlFor="password">
+            <label className="register__field-label" htmlFor="password">
               Password
             </label>
             <input
-              className="register__field-passwordField"
-              type="password"
+              className="register__field-input"
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               value={formData.password}
@@ -88,35 +88,41 @@ const RegisterPage = () => {
             />
           </div>
           <div className="register__field">
-            <label
-              className="register__field-passwordConfirm"
-              htmlFor="confirmPassword"
-            >
+            <label className="register__field-label" htmlFor="confirmPassword">
               Confirm Password
             </label>
             <input
-              className="register__field-passwordField"
-              type="password"
+              className="register__field-input"
+              type={showPassword ? "text" : "password"}
               id="confirmPassword"
               name="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleInputChange}
             />
+            <label className="register__show-password">
+              <input
+                type="checkbox"
+                checked={showPassword}
+                onChange={toggleShowPassword}
+              />
+              Show Password
+            </label>
           </div>
           <div className="register__field">
-            <label className="register__field-role" htmlFor="role">
+            <label className="register__field-label" htmlFor="role">
               Role
             </label>
             <select
-              className="register__field-userRole"
+              className="register__field-select"
               id="role"
               name="role"
               value={formData.role}
               onChange={handleInputChange}
             >
-              <option value="manager">Manager</option>
-              <option value="polisher">Mold Polisher</option>
-              <option value="spotter">Spotter</option>
+              <option value="Select">Please Select</option>
+              <option value="Manager">Manager</option>
+              <option value="Polisher">Mold Polisher</option>
+              <option value="Spotter">Spotter</option>
             </select>
           </div>
           <button
@@ -126,7 +132,10 @@ const RegisterPage = () => {
           >
             Register
           </button>
-          <h5 className="register__field-login">Already have an account?</h5>
+          <h5 className="register__field-login">
+            Already have an account?{" "}
+            <span className="register__field-login-text">Login</span>
+          </h5>
         </form>
       </div>
     </div>
