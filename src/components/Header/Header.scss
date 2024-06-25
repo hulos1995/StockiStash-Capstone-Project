@@ -1,0 +1,37 @@
+@use "../../style/partials/__variable" as *;
+@use "../../style/partials/__mixin" as *;
+.header {
+  font-family: "prata";
+  padding: 10px 20px;
+
+  &--dark {
+    background-color: $background-dark;
+    color: $text-secondary;
+  }
+  &--light {
+    background-color: $background-light;
+    color: $text-primary;
+  }
+  &__nav {
+    display: flex;
+    justify-content: space-around;
+  }
+  &__nav-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  &__nav-item {
+    margin: 0 15px;
+  }
+  &__nav-link {
+    text-decoration: none;
+    color: inherit;
+    font-size: 1rem;
+
+    &:hover {
+      color: $accent-color;
+    }
+  }
+}
