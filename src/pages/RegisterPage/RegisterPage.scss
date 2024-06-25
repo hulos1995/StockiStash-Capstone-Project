@@ -1,0 +1,94 @@
+@use "../../style/partials/_variable" as *;
+@use "../../style/partials/__mixin" as *;
+@use "../../style/partials/__typography" as *;
+@use "../../style/partials/__reset" as *;
+.register {
+  font-family: "prata";
+  height: 103vh;
+  &--dark {
+    background-color: $dark-bg;
+    color: $text-light;
+    .register__form {
+      background-color: lighten($dark-bg, 10%);
+    }
+  }
+  &--light {
+    background-color: $light-bg;
+    color: $text-dark;
+    .register__form {
+      background-color: darken($light-bg, 10%);
+    }
+  }
+  &__form {
+    font-size: 0.75rem;
+    width: 300px;
+    padding: 0 20px;
+    padding-bottom: 3px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+
+    @include tablet {
+      width: 700px;
+    }
+  }
+  &__title-container {
+    margin-bottom: 20px;
+    @include center;
+    &-text {
+      font-size: 1.5rem;
+      width: 90px;
+      padding-bottom: 0.5rem;
+    }
+  }
+  &__field {
+    margin-bottom: 15px;
+
+    &-role {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    &-user,
+    &-password,
+    &-passwordConfirm {
+      font-size: 0.75rem;
+      width: 100%;
+    }
+    input,
+    select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      margin-top: 0.5rem;
+      border: none;
+
+      &:focus {
+        border: 1px solid $primary-color;
+      }
+    }
+    &-passwordField {
+      margin-bottom: 0.5rem;
+    }
+    &-userRole {
+      &:focus {
+        border: 1px solid $primary-color;
+      }
+    }
+    &-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: $primary-color;
+      border: none;
+      border-radius: 5px;
+      color: $light-color;
+      margin-top: 0.5rem;
+      cursor: pointer;
+    }
+
+    &-login {
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  }
+}
