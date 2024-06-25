@@ -92,7 +92,7 @@ Employees: - abilities to have a visual of the items - abilities to take out an 
 ### Data
 
 User - id - user_name - password - user_role
-Inventory - id - item_name - description - quantity - item_type - item_status - image
+Inventory - id - user_id- item_name - description - quantity - item_type - item_status - image
 Report - id - user_id - inventory-id - report_date - report_description
 
 ### Endpoints

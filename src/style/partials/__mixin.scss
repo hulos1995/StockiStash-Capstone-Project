@@ -1,5 +1,5 @@
-@use "./_variable" as *;
-@use "./_typography" as *;
+@use "./__variable" as *;
+@use "./__typography" as *;
 @mixin tablet {
   @media screen and (min-width: 768px) {
     @content;
