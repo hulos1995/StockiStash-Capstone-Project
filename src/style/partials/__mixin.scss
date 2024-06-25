@@ -1,0 +1,27 @@
+@use "./_variable" as *;
+@use "./_typography" as *;
+@mixin tablet {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media screen and (min-width: 1280px) {
+    @content;
+  }
+}
+@mixin border {
+  border: 3px solid black;
+}
+@mixin column {
+  display: flex;
+  flex-direction: column;
+}
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin font {
+  font-family: "ave";
+}
