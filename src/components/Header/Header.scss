@@ -1,9 +1,21 @@
 @use "../../style/partials/__variable" as *;
 @use "../../style/partials/__mixin" as *;
+@use "../../style/partials/__typography" as *;
+@use "../../style/partials/__reset" as *;
 .header {
   font-family: "prata";
-  padding: 10px 20px;
-
+  padding: 1rem;
+  &__container {
+    position: relative;
+    width: 280px;
+    margin: 0 auto;
+    @include tablet {
+      width: 680px;
+    }
+    @include desktop {
+      width: 1000px;
+    }
+  }
   &--dark {
     background-color: $background-dark;
     color: $text-secondary;
@@ -12,26 +24,49 @@
     background-color: $background-light;
     color: $text-primary;
   }
+  &__dark-mode-toggle {
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    left: 5rem;
+    @include tablet {
+      width: 30px;
+      height: 30px;
+      left: -3rem;
+    }
+    @include desktop {
+      left: -10rem;
+    }
+    @include center;
+    position: absolute;
+    left: -1rem;
+    top: -0.25rem;
+    &--dark {
+      background-color: $background-light;
+    }
+    &--light {
+      background-color: $background-dark;
+    }
+  }
   &__nav {
-    display: flex;
-    justify-content: space-around;
-  }
-  &__nav-list {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  &__nav-item {
-    margin: 0 15px;
-  }
-  &__nav-link {
-    text-decoration: none;
-    color: inherit;
-    font-size: 1rem;
-
-    &:hover {
-      color: $accent-color;
+    &-list {
+      display: flex;
+      padding: 0;
+      margin: 0;
+      gap: 1rem;
+      justify-content: space-around;
+      padding-left: 0.5rem;
+    }
+    &-link {
+      color: inherit;
+      font-size: 1rem;
+      @include tablet {
+        font-size: 1.25rem;
+      }
+      &:hover {
+        color: $accent-color;
+      }
     }
   }
 }
