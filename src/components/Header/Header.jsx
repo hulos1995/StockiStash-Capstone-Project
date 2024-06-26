@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Header.scss";
-
+import logo from "../../assets/images/logo.png";
+import logoDark from "../../assets/images/logo-dark.png";
 const Header = ({ isDarkMode, toggleDarkMode }) => {
   return (
     <header
@@ -18,6 +19,17 @@ const Header = ({ isDarkMode, toggleDarkMode }) => {
           {isDarkMode ? "🌞" : "🌜"}
         </button>
         <nav className="header__nav">
+          <div className="header__logo">
+            {isDarkMode ? (
+              <img
+                className="header__logo-img"
+                src={logoDark}
+                alt="Logo Dark"
+              />
+            ) : (
+              <img className="header__logo-img" src={logo} alt="Logo" />
+            )}{" "}
+          </div>
           <ul className="header__nav-list">
             <li className="header__nav-item">
               <Link to="/" className="header__nav-link">

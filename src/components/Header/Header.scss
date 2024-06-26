@@ -5,16 +5,38 @@
 .header {
   font-family: "prata";
   padding: 1rem;
+  height: 80px;
+  @include center;
+  &__logo {
+    @include tablet {
+      position: absolute;
+      top: -2rem;
+      @include tablet {
+        left: -18rem;
+      }
+      @include desktop {
+        left: -32.2rem;
+      }
+    }
+    &-img {
+      margin-left: 4rem;
+      width: 150px;
+      @include tablet {
+        width: 200px;
+      }
+    }
+  }
   &__container {
     position: relative;
-    width: 280px;
-    margin: 0 auto;
+    width: 300px;
     @include tablet {
-      width: 680px;
+      width: 700px;
     }
     @include desktop {
       width: 1000px;
     }
+
+    margin: 0 auto;
   }
   &--dark {
     background-color: $background-dark;
@@ -29,19 +51,19 @@
     border-radius: 50%;
     width: 24px;
     height: 24px;
-    left: 5rem;
+    top: 1.5rem;
+    right: 0;
     @include tablet {
       width: 30px;
       height: 30px;
-      left: -3rem;
+      right: -2rem;
+      top: -2rem;
     }
     @include desktop {
-      left: -10rem;
+      right: -12rem;
     }
     @include center;
     position: absolute;
-    left: -1rem;
-    top: -0.25rem;
     &--dark {
       background-color: $background-light;
     }
@@ -50,19 +72,35 @@
     }
   }
   &__nav {
+    position: relative;
+    width: 100%;
+    @include tablet {
+      width: 50%;
+      margin-left: 15rem;
+    }
+    @include desktop {
+      width: 50%;
+    }
     &-list {
       display: flex;
       padding: 0;
       margin: 0;
-      gap: 1rem;
-      justify-content: space-around;
-      padding-left: 0.5rem;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+      @include tablet {
+        margin-left: 8rem;
+        margin-bottom: 0;
+      }
+      @include desktop {
+        margin-left: 0;
+      }
     }
     &-link {
       color: inherit;
       font-size: 1rem;
       @include tablet {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
       }
       &:hover {
         color: $accent-color;
