@@ -1,8 +1,6 @@
 import { useState } from "react";
-import DarkMode from "../../components/DarkMode/DarkMode";
 import "./RegisterPage.scss";
-const RegisterPage = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+const RegisterPage = ({ isDarkMode }) => {
   const [formData, setFormData] = useState({
     firstname: "",
     lastname: "",
@@ -12,24 +10,26 @@ const RegisterPage = () => {
     role: "manager",
   });
   const [showPassword, setShowPassword] = useState(false);
-  const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
   const handleRegister = () => {
     console.log("Registering user:", formData);
   };
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
   return (
     <div
       className={`register ${
         isDarkMode ? "register--dark" : "register--light"
       }`}
     >
-      <DarkMode isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
       <div className="register__form">
         <div className="register__title-container">
           <h2 className="register__title-container-text">Register</h2>
@@ -119,10 +119,9 @@ const RegisterPage = () => {
               value={formData.role}
               onChange={handleInputChange}
             >
-              <option value="Select">Please Select</option>
-              <option value="Manager">Manager</option>
-              <option value="Polisher">Mold Polisher</option>
-              <option value="Spotter">Spotter</option>
+              <option value="manager">Manager</option>
+              <option value="polisher">Mold Polisher</option>
+              <option value="spotter">Spotter</option>
             </select>
           </div>
           <button
@@ -132,10 +131,7 @@ const RegisterPage = () => {
           >
             Register
           </button>
-          <h5 className="register__field-login">
-            Already have an account?{" "}
-            <span className="register__field-login-text">Login</span>
-          </h5>
+          <h5 className="register__field-login">Already have an account?</h5>
         </form>
       </div>
     </div>
