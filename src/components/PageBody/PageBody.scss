@@ -1,0 +1,88 @@
+@use "../../style/partials/__variable" as *;
+@use "../../style/partials/__mixin" as *;
+@use "../../style/partials/__typography" as *;
+@use "../../style/partials/__reset" as *;
+.home {
+  background-color: $background-light;
+  @include font;
+  &-container {
+    display: flex;
+    position: relative;
+    &-clockin {
+      width: 50%;
+      @include center;
+      flex-direction: column;
+      &-title {
+        font-size: 1rem;
+      }
+      &-btn {
+        width: 90%;
+        height: 30px;
+        @include button;
+      }
+      &-img {
+        position: absolute;
+        width: 24px;
+        left: 1.5rem;
+      }
+    }
+    &-inventory {
+      width: 50%;
+      @include center;
+      flex-direction: column;
+      &-title {
+        font-size: 1rem;
+      }
+      &-btn {
+        width: 90%;
+        @include button;
+        height: 30px;
+      }
+      &-img {
+        position: absolute;
+        width: 24px;
+        right: 1.5rem;
+      }
+    }
+  }
+  &-wrapper {
+    display: flex;
+    position: relative;
+    &-signup {
+      width: 50%;
+      @include center;
+      flex-direction: column;
+      &-title {
+        font-size: 1rem;
+      }
+      &-btn {
+        width: 90%;
+        @include button;
+        height: 30px;
+      }
+      &-img {
+        position: absolute;
+        width: 24px;
+        left: 1.5rem;
+      }
+    }
+    &-login {
+      width: 50%;
+      @include center;
+      flex-direction: column;
+      &-title {
+        font-size: 1rem;
+      }
+      &-btn {
+        width: 90%;
+        @include button;
+        height: 30px;
+      }
+      &-img {
+        position: absolute;
+        width: 24px;
+        right: 1.5rem;
+      }
+    }
+  }
+}
