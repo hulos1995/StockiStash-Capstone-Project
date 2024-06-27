@@ -25,3 +25,35 @@
 @mixin font {
   font-family: "ave";
 }
+@mixin button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  color: #333;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
+    background-color: #ffd700;
+    color: #fff;
+  }
+}
+@mixin slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  font-weight: 600;
+  color: #333;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
+    background-color: $background-dark;
+    color: #fff;
+  }
+}

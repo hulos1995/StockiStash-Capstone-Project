@@ -1,0 +1,51 @@
+@use "../../style/partials/__variable" as *;
+@use "../../style/partials/__mixin" as *;
+@use "../../style/partials/__typography" as *;
+@use "../../style/partials/__reset" as *;
+.slider {
+  width: 100%;
+  position: relative;
+  margin-top: 2rem;
+  &__container {
+    width: 100%;
+    height: 100%;
+  }
+  &__slide {
+    @include center;
+  }
+  &__image {
+    width: 100%;
+    height: auto;
+    max-width: 30%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+  }
+  &__button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-10%);
+    background-color: $primary-color;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.3s, transform 0.3s;
+    &:hover {
+      background-color: darken($primary-color, 10%);
+      transform: scale(1.1);
+    }
+    &:active {
+      background-color: darken($primary-color, 20%);
+    }
+  }
+  &__button--prev {
+    left: 10px;
+    @include slider;
+  }
+  &__button--next {
+    right: 10px;
+    @include slider;
+  }
+}
