@@ -8,7 +8,6 @@ import image2 from "../../assets/images/mold-2.jpg";
 import image3 from "../../assets/images/mold-3.jpg";
 import image4 from "../../assets/images/mold-4.jpg";
 import { Navigation, Pagination } from "swiper/modules";
-
 const Slider = () => {
   return (
     <div className="slider">
