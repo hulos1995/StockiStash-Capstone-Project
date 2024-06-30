@@ -2,34 +2,49 @@
 @use "../../style/partials/__mixin" as *;
 @use "../../style/partials/__typography" as *;
 @use "../../style/partials/__reset" as *;
+
 .home {
   background-color: $background-light;
+  color: $text-primary;
   @include font;
+
+  &--dark {
+    background-color: $background-dark;
+    color: $text-secondary;
+  }
+
   &-containers {
     @include tablet {
       display: flex;
       justify-content: space-between;
     }
   }
+
   &-container {
     display: flex;
     position: relative;
     @include tablet {
       width: 50%;
     }
-    &-clockin {
+
+    &-clockin,
+    &-inventory,
+    &-signup,
+    &-login {
       width: 50%;
       @include center;
       flex-direction: column;
       @include tablet {
         width: 30vw;
       }
+
       &-title {
         font-size: 1rem;
         @include tablet {
           font-size: 1.5rem;
         }
       }
+
       &-btn {
         width: 90%;
         height: 30px;
@@ -44,6 +59,7 @@
           padding-left: 0;
         }
       }
+
       &-img {
         position: absolute;
         width: 24px;
@@ -57,47 +73,8 @@
         }
       }
     }
-    &-inventory {
-      width: 50%;
-      @include center;
-      flex-direction: column;
-      @include tablet {
-        width: 30vw;
-      }
-      &-title {
-        font-size: 1rem;
-        @include tablet {
-          font-size: 1.5rem;
-        }
-      }
-      &-btn {
-        width: 90%;
-        @include button;
-        height: 30px;
-        @include tablet {
-          height: 40px;
-          width: 150px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding-right: 2rem;
-          padding-left: 0;
-        }
-      }
-      &-img {
-        position: absolute;
-        width: 24px;
-        right: 1.5rem;
-        top: 4rem;
-        @include tablet {
-          position: relative;
-          width: 30px;
-          top: 0;
-          left: 0.75rem;
-        }
-      }
-    }
   }
+
   &-wrapper {
     display: flex;
     position: relative;
@@ -105,23 +82,27 @@
       justify-content: space-between;
       width: 50vw;
     }
-    &-signup {
+
+    &-signup,
+    &-login {
       width: 50%;
       @include center;
       flex-direction: column;
       @include tablet {
         width: 30vw;
       }
+
       &-title {
         font-size: 1rem;
         @include tablet {
           font-size: 1.5rem;
         }
       }
+
       &-btn {
         width: 90%;
-        @include button;
         height: 30px;
+        @include button;
         @include tablet {
           height: 40px;
           width: 150px;
@@ -132,54 +113,15 @@
           padding-left: 0;
         }
       }
+
       &-img {
         position: absolute;
         width: 24px;
         left: 1.5rem;
         top: 4rem;
         @include tablet {
-          position: relative;
           width: 30px;
-          top: 0;
-          left: 0.75rem;
-        }
-      }
-    }
-    &-login {
-      width: 50%;
-      @include center;
-      flex-direction: column;
-      @include tablet {
-        width: 30vw;
-      }
-      &-title {
-        font-size: 1rem;
-        @include tablet {
-          font-size: 1.5rem;
-        }
-      }
-      &-btn {
-        width: 90%;
-        @include button;
-        height: 30px;
-        @include tablet {
-          height: 40px;
-          width: 150px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding-right: 3rem;
-          padding-left: 0;
-        }
-      }
-      &-img {
-        position: absolute;
-        width: 24px;
-        right: 1.5rem;
-        top: 4rem;
-        @include tablet {
           position: relative;
-          width: 30px;
           top: 0;
           left: 0.75rem;
         }

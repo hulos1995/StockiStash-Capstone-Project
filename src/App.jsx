@@ -7,7 +7,6 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import Header from "./components/Header/Header";
-
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
@@ -16,8 +15,11 @@ function App() {
       <BrowserRouter>
         <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/inventory" element={<InventoryPage />} />
+          <Route path="/" element={<HomePage isDarkMode={isDarkMode} />} />
+          <Route
+            path="/inventory"
+            element={<InventoryPage isDarkMode={isDarkMode} />}
+          />
           <Route
             path="/signup"
             element={<RegisterPage isDarkMode={isDarkMode} />}
