@@ -4,9 +4,10 @@ import inventory from "../../assets/images/carton.png";
 import signup from "../../assets/images/signup.png";
 import login from "../../assets/images/login.png";
 import Slider from "../Slider/Slider";
-const PageBody = () => {
+
+const PageBody = ({ isDarkMode }) => {
   return (
-    <section className="home">
+    <section className={`home ${isDarkMode ? "home--dark" : "home--light"}`}>
       <div className="home-containers">
         <div className="home-container">
           <div className="home-container-clockin">
@@ -16,7 +17,7 @@ const PageBody = () => {
               <img
                 className="home-container-clockin-img"
                 src={clock}
-                alt={`${clock} logo`}
+                alt="Clock in logo"
               />
               Check-in
             </button>
@@ -27,7 +28,7 @@ const PageBody = () => {
               <img
                 className="home-container-inventory-img"
                 src={inventory}
-                alt={`${inventory} logo`}
+                alt="Inventory logo"
               />
               Inventory
             </button>
@@ -40,7 +41,7 @@ const PageBody = () => {
               <img
                 className="home-wrapper-signup-img"
                 src={signup}
-                alt={`${signup} logo}`}
+                alt="Signup logo"
               />
               Signup
             </button>
@@ -51,7 +52,7 @@ const PageBody = () => {
               <img
                 className="home-wrapper-login-img"
                 src={login}
-                alt={`${login} logo}`}
+                alt="Login logo"
               />
               Login
             </button>

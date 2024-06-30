@@ -1,10 +1,10 @@
 import Hero from "../../components/Hero/Hero";
 import PageBody from "../../components/PageBody/PageBody";
-const HomePage = () => {
+const HomePage = ({ isDarkMode }) => {
   return (
     <main>
       <Hero />
-      <PageBody />
+      <PageBody isDarkMode={isDarkMode} />
     </main>
   );
 };
