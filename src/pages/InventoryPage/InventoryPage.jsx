@@ -52,10 +52,19 @@ const InventoryPage = ({ isDarkMode }) => {
                 Quantity: {item.quantity}
               </p>
               <p className="inventory__item-description">
-                Status: {item.status}
+                Status:{" "}
+                <span
+                  className={`inventory__item-status ${
+                    item.status === "Out of Stock"
+                      ? "inventory__item-status--outstock"
+                      : "inventory__item-status--instock"
+                  }`}
+                >
+                  {item.status}
+                </span>
               </p>
               <a href={item.link} className="inventory__item-link">
-                More Info
+                Click here to buy
               </a>
             </div>
           </div>

@@ -54,3 +54,20 @@
     color: #fff;
   }
 }
+@mixin mobile-tags-stocked {
+  height: 20px;
+  width: auto;
+  padding: 0 0.5rem;
+  border-radius: 20px;
+  color: $background-dark;
+  background-color: rgba($color: #158463, $alpha: 0.1);
+}
+
+@mixin mobile-tags-not-stocked {
+  height: 24px;
+  width: auto;
+  padding: 0 0.5rem;
+  border-radius: 20px;
+  color: $background-dark;
+  background-color: rgba($color: #c94515, $alpha: 0.1);
+}
