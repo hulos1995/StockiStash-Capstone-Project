@@ -3,6 +3,7 @@ import "./InventoryPage.scss";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import ItemModal from "../../components/ItemModal/ItemModal";
+import search from "../../assets/images/search-24px.svg";
 
 const InventoryPage = ({ isDarkMode }) => {
   const { id } = useParams();
@@ -10,7 +11,6 @@ const InventoryPage = ({ isDarkMode }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [show, setShow] = useState(false);
   const base_URL = import.meta.env.VITE_API_URL;
-
   useEffect(() => {
     const getInventory = async () => {
       try {
@@ -20,7 +20,6 @@ const InventoryPage = ({ isDarkMode }) => {
         console.error("Error fetching data", error);
       }
     };
-
     const getInventoryDetails = async () => {
       try {
         const res = await axios.get(`${base_URL}/inventory/${id}`);
@@ -29,22 +28,18 @@ const InventoryPage = ({ isDarkMode }) => {
         console.error(error);
       }
     };
-
     if (id) {
       getInventoryDetails();
     }
     getInventory();
   }, [base_URL, id]);
-
   const showModal = (item) => {
     setSelectedItem(item);
     setShow(true);
   };
-
   const hideModal = () => {
     setShow(false);
   };
-
   return (
     <div
       className={`inventory ${

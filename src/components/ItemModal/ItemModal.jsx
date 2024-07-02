@@ -1,126 +1,151 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ItemModal.scss";
-
+import close from "../../assets/images/close-24px.svg";
+import del from "../../assets/images/delete_outline-24px.svg";
+import edit from "../../assets/images/edit-24px.svg";
 const ItemModal = ({ show, handleClose, selectedItem }) => {
-  const showHideClassName = show ? "modal display-block" : "modal display-none";
   const [selectedGrit, setSelectedGrit] = useState(null);
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
+  const keyPressRef = useRef(null);
+  // Reset count and select the first grit when a new item is selected or the modal is shown
   useEffect(() => {
-    if (selectedItem && selectedItem.grits && selectedItem.grits.length > 0) {
-      setSelectedGrit(selectedItem.grits[0]);
-    } else {
-      setSelectedGrit(null);
+    if (selectedItem) {
+      setSelectedGrit(selectedItem.grits?.[0] || null);
+      if (show) {
+        setCount(0);
+      }
     }
-    const handleKeyDown = (e) => {
+  }, [show, selectedItem]);
+  // Close the modal when the Escape key is pressed
+  useEffect(() => {
+    keyPressRef.current = (e) => {
       if (e.key === "Escape") {
         closeAndNavigate();
       }
     };
-    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", keyPressRef.current);
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", keyPressRef.current);
     };
-  }, [selectedItem]);
-
-  const handleGritClick = (grit) => {
-    setSelectedGrit(grit);
-  };
+  }, []);
+  // Close the modal and navigate to the inventory page
   const closeAndNavigate = () => {
     handleClose();
     navigate("/inventory");
   };
+  // Handle backdrop clicks to close the modal
   const handleBackdropClick = (e) => {
     if (e.target.className.includes("modal")) {
       closeAndNavigate();
     }
   };
+  // Increment the count and update the quantity
   const incrementCount = () => {
     setCount(count + 1);
     updateQuantity(1);
   };
+  // Decrement the count and update the quantity
   const decrementCount = () => {
     setCount(count - 1);
     updateQuantity(-1);
   };
+  // Handle changes to the input field
   const handleInputChange = (e) => {
     const newCount = parseInt(e.target.value, 10) || 0;
     const diff = newCount - count;
     setCount(newCount);
     updateQuantity(diff);
   };
+  // Update the quantity of the selected grit or item
   const updateQuantity = (diff) => {
     if (selectedGrit) {
-      setSelectedGrit({
-        ...selectedGrit,
-        quantity: selectedGrit.quantity + diff,
-      });
+      setSelectedGrit((prevGrit) => ({
+        ...prevGrit,
+        quantity: prevGrit.quantity + diff,
+      }));
     } else if (selectedItem) {
       selectedItem.quantity += diff;
     }
   };
+  if (!selectedItem) return null;
   return (
-    <div className={showHideClassName} onClick={handleBackdropClick}>
-      {selectedItem && (
-        <section className="modal-main" onClick={(e) => e.stopPropagation()}>
-          <div className="modal-image">
-            <img
-              src={selectedGrit ? selectedGrit.image : selectedItem.image}
-              alt={`${
-                selectedGrit ? selectedGrit.grit : selectedItem.name
-              } picture`}
-            />
+    <div
+      className={`modal ${show ? "modal-block" : "modal-none"}`}
+      onClick={handleBackdropClick}
+    >
+      <section className="modal-main" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-images">
+          <img
+            className="modal-image"
+            src={selectedGrit ? selectedGrit.image : selectedItem.image}
+            alt={`${
+              selectedGrit ? selectedGrit.grit : selectedItem.name
+            } picture`}
+          />
+        </div>
+        <div className="modal-details">
+          <div className="modal-details__info">
+            <p>
+              Status:{" "}
+              {selectedItem.quantity <= 0
+                ? "Out of Stock"
+                : selectedItem.status}
+            </p>
+            <p>Description: {selectedItem.description}</p>
+            <p>Quantity: {selectedItem.quantity}</p>
           </div>
-          <div className="modal-details">
-            <div className="modal-details__info">
-              <p>
-                Status:{" "}
-                {selectedItem.quantity <= 0
-                  ? "Out of Stock"
-                  : selectedItem.status}
-              </p>
-              <p>Description: {selectedItem.description}</p>
-              <p>Quantity: {selectedItem.quantity}</p>
-            </div>
-            {selectedGrit && (
+          {selectedGrit && (
+            <>
               <div className="modal-grits">
                 {selectedItem.grits.map((grit) => (
                   <div
                     key={grit.id}
                     className={`modal-grit ${
-                      selectedGrit.id === grit.id ? "active" : ""
+                      selectedGrit.id === grit.id ? "modal-grit-active" : ""
                     }`}
-                    onClick={() => handleGritClick(grit)}
+                    onClick={() => setSelectedGrit(grit)}
                   >
                     <p>{grit.grit}</p>
                   </div>
                 ))}
               </div>
-            )}
-            {selectedGrit && (
               <div className="modal-grit-details">
                 <p>Grit: {selectedGrit.grit}</p>
                 <p>Description: {selectedGrit.description}</p>
                 <p>Quantity: {selectedGrit.quantity}</p>
               </div>
-            )}
-            <div className="modal-counter">
-              <button onClick={decrementCount}>-</button>
-              <input
-                type="number"
-                value={count}
-                onChange={handleInputChange}
-                placeholder={count}
-              />
-              <button onClick={incrementCount}>+</button>
-            </div>
+            </>
+          )}
+          <div className="modal-counter">
+            <button className="modal__btn-dec" onClick={decrementCount}>
+              -
+            </button>
+            <input
+              className="modal-counter-input"
+              type="number"
+              value={count}
+              onChange={handleInputChange}
+              placeholder={count}
+            />
+            <button className="modal__btn-incre" onClick={incrementCount}>
+              +
+            </button>
           </div>
-          <button onClick={closeAndNavigate}>Close</button>
-        </section>
-      )}
+        </div>
+        <div className="modal-container">
+          <button className="modal__btn-close" onClick={closeAndNavigate}>
+            <img
+              className="modal-container-img"
+              src={close}
+              alt={`${close} logo`}
+            />
+            Close
+          </button>
+        </div>
+      </section>
     </div>
   );
 };
-
 export default ItemModal;
