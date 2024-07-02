@@ -1,0 +1,165 @@
+@use "../../style/partials/__variable" as *;
+@use "../../style/partials/__mixin" as *;
+@use "../../style/partials/__typography" as *;
+@use "../../style/partials/__reset" as *;
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  &-block {
+    display: flex;
+  }
+  &-none {
+    display: none;
+  }
+  &-main {
+    background: $background-light;
+    color: $text-primary;
+    width: 70%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    padding: 1.25rem;
+    font-size: 0.75rem;
+    @include tablet {
+      font-size: 1rem;
+    }
+    @media (max-width: 767px) {
+      flex-direction: column;
+    }
+  }
+  &-details {
+    width: 70%;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    p {
+      margin: 5px 10px;
+    }
+    &__info {
+      width: 160%;
+      @include tablet {
+        width: 100%;
+      }
+    }
+  }
+  &-images {
+    width: 100%;
+    @include center;
+    @include tablet {
+      width: 30%;
+      display: block;
+    }
+  }
+  &-image {
+    @include tablet {
+      width: 18vw;
+    }
+    @include desktop {
+      width: 100%;
+    }
+    height: auto;
+  }
+  &-grits {
+    display: flex;
+    margin-top: 0.625rem;
+    gap: 0.5rem;
+    width: 150%;
+    flex-wrap: wrap;
+    @include tablet {
+      width: 100%;
+    }
+  }
+  &-grit {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    &-details {
+      margin-top: 0.625rem;
+      width: 160%;
+      @include tablet {
+        width: 100%;
+      }
+    }
+    &-active {
+      background-color: $accent-color;
+      color: $button-text;
+    }
+  }
+  &-counter {
+    display: flex;
+    margin-top: 0.625rem;
+
+    &-input {
+      width: 60px;
+      text-align: center;
+      font-size: 1.25rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin: 0 0.625rem;
+    }
+  }
+  &__btn {
+    &-dec {
+      @include modal-btn;
+    }
+    &-incre {
+      @include modal-btn;
+    }
+    &-close {
+      @include modal-btn;
+      width: 60px;
+      text-align: end;
+      font-size: 0.75rem;
+      @include tablet {
+        width: 80px;
+        font-size: 1rem;
+      }
+    }
+  }
+  &-container {
+    position: relative;
+    width: 50%;
+    margin-left: 3.5rem;
+    @include tablet {
+      position: absolute;
+      bottom: 2.5rem;
+      right: 2rem;
+      margin-left: 0;
+      width: 15%;
+    }
+    @include desktop {
+      position: relative;
+      padding-top: 3.5rem;
+      display: block;
+    }
+    &-img {
+      position: absolute;
+      width: 18px;
+      left: 0.75rem;
+      top: 0.4rem;
+      @include tablet {
+        left: 0.75rem;
+        top: 0.15rem;
+        width: 24px;
+      }
+      @include desktop {
+        top: 3.75rem;
+      }
+    }
+  }
+}
