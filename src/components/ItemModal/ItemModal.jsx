@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ItemModal.scss";
 
-const ItemModal = ({ show, handleClose, children, selectedItem }) => {
+const ItemModal = ({ show, handleClose, selectedItem }) => {
   const showHideClassName = show ? "modal display-block" : "modal display-none";
   const [selectedGrit, setSelectedGrit] = useState(null);
 
@@ -9,17 +9,34 @@ const ItemModal = ({ show, handleClose, children, selectedItem }) => {
     if (selectedItem && selectedItem.grits && selectedItem.grits.length > 0) {
       setSelectedGrit(selectedItem.grits[0]);
     }
-  }, [selectedItem]);
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        handleClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedItem, handleClose]);
 
   const handleGritClick = (grit) => {
     setSelectedGrit(grit);
   };
 
+  const handleBackdropClick = (e) => {
+    if (e.target.className.includes("modal")) {
+      handleClose();
+    }
+  };
+
   return (
-    <div className={showHideClassName}>
+    <div className={showHideClassName} onClick={handleBackdropClick}>
       {selectedItem && selectedGrit && (
         <section className="modal-main">
-          {children}
           <div className="modal-image">
             <img
               src={selectedGrit.image}
