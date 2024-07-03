@@ -7,6 +7,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import Header from "./components/Header/Header";
+import AuthPage from "./pages/AuthPage/AuthPage";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
@@ -26,7 +27,7 @@ function App() {
           />
           <Route
             path="/signup"
-            element={<RegisterPage isDarkMode={isDarkMode} />}
+            element={<AuthPage isDarkMode={isDarkMode} />}
           />
           <Route
             path="/login"
