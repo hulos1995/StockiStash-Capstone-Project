@@ -10,6 +10,7 @@ const InventoryPage = ({ isDarkMode }) => {
   const [inventoryData, setInventoryData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [show, setShow] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
   const base_URL = import.meta.env.VITE_API_URL;
   useEffect(() => {
     const getInventory = async () => {
@@ -40,6 +41,12 @@ const InventoryPage = ({ isDarkMode }) => {
   const hideModal = () => {
     setShow(false);
   };
+  const handleSearchChange = (e) => {
+    setSearchInput(e.target.value);
+  };
+  const searchData = inventoryData.filter((item) =>
+    item.item_name.toLowerCase().includes(searchInput.toLowerCase())
+  );
   return (
     <div
       className={`inventory ${
@@ -51,6 +58,13 @@ const InventoryPage = ({ isDarkMode }) => {
           type="text"
           placeholder="Search inventory..."
           className="inventory__input"
+          value={searchInput}
+          onChange={handleSearchChange}
+        />
+        <img
+          className="inventory__search-img"
+          src={search}
+          alt={`${search} logo`}
         />
         <button className="inventory__button">Search</button>
       </div>
@@ -60,7 +74,7 @@ const InventoryPage = ({ isDarkMode }) => {
           show={show}
           handleClose={hideModal}
         />
-        {inventoryData.map((item) => (
+        {searchData.map((item) => (
           <div key={item.id} className="inventory__item-wrapper">
             <Link to={`/inventory/${item.id}`} onClick={() => showModal(item)}>
               <div className="inventory__item">

@@ -3,6 +3,7 @@
 @use "../../style/partials/__typography" as *;
 @use "../../style/partials/__reset" as *;
 .inventory {
+  font-family: "prata";
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,16 +17,25 @@
     background-color: $background-light;
     color: $text-primary;
   }
-  &__search-bar {
-    display: flex;
-    gap: 1rem;
-    background-color: #fff;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
-    width: 100%;
-    max-width: 800px;
+  &__search {
+    &-bar {
+      position: relative;
+      display: flex;
+      gap: 1rem;
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      width: 100%;
+      max-width: 800px;
+    }
+    &-img {
+      width: 28px;
+      position: absolute;
+      right: 8rem;
+      top: 1.25rem;
+    }
   }
   &__input {
     padding: 0.5rem;
@@ -33,6 +43,9 @@
     border-radius: 4px;
     font-size: 1rem;
     flex: 1;
+    &::placeholder {
+      color: $text-primary;
+    }
   }
   &__button {
     padding: 0.5rem 1rem;
