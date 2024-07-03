@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
+import { ToastContainer } from "react-toastify";
 import HomePage from "./pages/HomePage/HomePage";
 import InventoryPage from "./pages/InventoryPage/InventoryPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
@@ -35,6 +35,16 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </BrowserRouter>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        theme="light"
+        style={{ width: "300px" }}
+      />
     </>
   );
 }

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./RegisterPage.scss";
+import axios from "axios";
+import { toast } from "react-toastify";
 const RegisterPage = ({ isDarkMode }) => {
   const [formData, setFormData] = useState({
     firstname: "",
@@ -7,17 +9,34 @@ const RegisterPage = ({ isDarkMode }) => {
     username: "",
     password: "",
     confirmPassword: "",
-    role: "manager",
+    role: "admin",
   });
   const [showPassword, setShowPassword] = useState(false);
+  const base_URL = import.meta.env.VITE_API_URL;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleRegister = () => {
-    console.log("Registering user:", formData);
+  const handleRegister = async () => {
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    try {
+      const response = await axios.post(`${base_URL}/signup`, {
+        first_name: formData.firstname,
+        last_name: formData.lastname,
+        user_name: formData.username,
+        password: formData.password,
+        user_role: formData.role,
+      });
+      toast.success("User registered successfully");
+    } catch (error) {
+      toast.error(error.response?.data || "Error registering user");
+    }
   };
 
   const toggleShowPassword = () => {
@@ -119,7 +138,7 @@ const RegisterPage = ({ isDarkMode }) => {
               value={formData.role}
               onChange={handleInputChange}
             >
-              <option value="manager">Manager</option>
+              <option value="admin">Admin</option>
               <option value="polisher">Mold Polisher</option>
               <option value="spotter">Spotter</option>
             </select>
@@ -131,7 +150,6 @@ const RegisterPage = ({ isDarkMode }) => {
           >
             Register
           </button>
-          <h5 className="register__field-login">Already have an account?</h5>
         </form>
       </div>
     </div>
