@@ -33,7 +33,10 @@ function App() {
             path="/login"
             element={<LoginPage isDarkMode={isDarkMode} />}
           />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route
+            path="/profile"
+            element={<ProfilePage isDarkMode={isDarkMode} />}
+          />
         </Routes>
       </BrowserRouter>
       <ToastContainer
