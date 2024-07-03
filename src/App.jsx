@@ -10,6 +10,7 @@ import Header from "./components/Header/Header";
 import AuthPage from "./pages/AuthPage/AuthPage";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [authToken, setAuthToken] = useState(null);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   return (
     <>
@@ -31,11 +32,15 @@ function App() {
           />
           <Route
             path="/login"
-            element={<LoginPage isDarkMode={isDarkMode} />}
+            element={
+              <LoginPage isDarkMode={isDarkMode} setAuthToken={setAuthToken} />
+            }
           />
           <Route
             path="/profile"
-            element={<ProfilePage isDarkMode={isDarkMode} />}
+            element={
+              <ProfilePage isDarkMode={isDarkMode} authToken={authToken} />
+            }
           />
         </Routes>
       </BrowserRouter>
