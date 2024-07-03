@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./LoginPage.scss";
-
+import logo from "../../assets/images/login-logo.jpg";
 const LoginPage = ({ isDarkMode }) => {
   const [formData, setFormData] = useState({
     username: "",
@@ -24,6 +24,7 @@ const LoginPage = ({ isDarkMode }) => {
   return (
     <div className={`login ${isDarkMode ? "login--dark" : "login--light"}`}>
       <div className="login__form">
+        <img className="login__logo" src={logo} alt={`${logo} login`} />
         <div className="login__title-container">
           <h2 className="login__title-container-text">Login</h2>
         </div>
@@ -53,15 +54,15 @@ const LoginPage = ({ isDarkMode }) => {
               value={formData.password}
               onChange={handleInputChange}
             />
-            <label className="login__show-password">
-              <input
-                type="checkbox"
-                checked={showPassword}
-                onChange={toggleShowPassword}
-              />
-              Show Password
-            </label>
           </div>
+          <label className="login__show-password">
+            <input
+              type="checkbox"
+              checked={showPassword}
+              onChange={toggleShowPassword}
+            />
+            Show Password
+          </label>
           <button
             className="login__field-btn"
             type="button"
@@ -69,7 +70,7 @@ const LoginPage = ({ isDarkMode }) => {
           >
             Login
           </button>
-          <h5 className="login__field-register">Don't have an account?</h5>
+          <h5 className="login__field-register">Don&apos;t have an account?</h5>
         </form>
       </div>
     </div>
