@@ -7,16 +7,20 @@ const LoginPage = ({ isDarkMode }) => {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
   const handleLogin = () => {
     console.log("Logging in user:", formData);
   };
+
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
   return (
     <div className={`login ${isDarkMode ? "login--dark" : "login--light"}`}>
       <div className="login__form">

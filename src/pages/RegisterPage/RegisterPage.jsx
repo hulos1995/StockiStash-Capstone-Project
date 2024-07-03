@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./RegisterPage.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import logo from "../../assets/images/register-logo.jpg";
 const RegisterPage = ({ isDarkMode }) => {
   const [formData, setFormData] = useState({
     firstname: "",
@@ -26,7 +28,7 @@ const RegisterPage = ({ isDarkMode }) => {
     }
 
     try {
-      const response = await axios.post(`${base_URL}/signup`, {
+      await axios.post(`${base_URL}/signup`, {
         first_name: formData.firstname,
         last_name: formData.lastname,
         user_name: formData.username,
@@ -42,117 +44,120 @@ const RegisterPage = ({ isDarkMode }) => {
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-
   return (
-    <div
+    <section
       className={`register ${
         isDarkMode ? "register--dark" : "register--light"
       }`}
     >
       <div className="register__form">
-        <div className="register__title-container">
-          <h2 className="register__title-container-text">Register</h2>
+        <img className="register__logo" src={logo} alt={`${logo} logo`} />
+        <div className="register__title">
+          <h1 className="register__title-text">Register</h1>
         </div>
-        <form>
-          <div className="register__field">
-            <label className="register__field-label" htmlFor="firstname">
-              First Name
-            </label>
-            <input
-              className="register__field-input"
-              type="text"
-              id="firstname"
-              name="firstname"
-              value={formData.firstname}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="register__field">
-            <label className="register__field-label" htmlFor="lastname">
-              Last Name
-            </label>
-            <input
-              className="register__field-input"
-              type="text"
-              id="lastname"
-              name="lastname"
-              value={formData.lastname}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="register__field">
-            <label className="register__field-label" htmlFor="username">
-              Username
-            </label>
-            <input
-              className="register__field-input"
-              type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="register__field">
-            <label className="register__field-label" htmlFor="password">
-              Password
-            </label>
-            <input
-              className="register__field-input"
-              type={showPassword ? "text" : "password"}
-              id="password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="register__field">
-            <label className="register__field-label" htmlFor="confirmPassword">
-              Confirm Password
-            </label>
-            <input
-              className="register__field-input"
-              type={showPassword ? "text" : "password"}
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
-            />
-            <label className="register__show-password">
+        <form className="register__form-content">
+          <div className="register__input-boxes">
+            <div className="register__input-box">
+              <i className="register__input-name">First Name</i>
               <input
+                className="register__input-type"
+                type="text"
+                name="firstname"
+                placeholder="Enter your first name"
+                required
+                value={formData.firstname}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="register__input-box">
+              <i className="register__input-name">Last Name</i>
+              <input
+                className="register__input-type"
+                type="text"
+                name="lastname"
+                placeholder="Enter your last name"
+                required
+                value={formData.lastname}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="register__input-box">
+              <i className="register__input-name">User Name</i>
+              <input
+                className="register__input-type"
+                type="text"
+                name="username"
+                placeholder="Enter your email"
+                required
+                value={formData.username}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="register__input-box">
+              <i className="register__input-name">Password</i>
+              <input
+                className="register__input-type"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Enter your password"
+                required
+                value={formData.password}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="register__input-box">
+              <i className="register__input-name">Confirm Password</i>
+              <input
+                className="register__input-type"
+                type={showPassword ? "text" : "password"}
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                required
+                value={formData.confirmPassword}
+                onChange={handleInputChange}
+              />
+            </div>
+            <label className="register__input-password">
+              Show Password
+              <input
+                className="register__input-check"
                 type="checkbox"
                 checked={showPassword}
                 onChange={toggleShowPassword}
               />
-              Show Password
             </label>
+            <div className="register__input-container">
+              <div className="register__input-box">
+                <select
+                  name="role"
+                  value={formData.role}
+                  onChange={handleInputChange}
+                  className="register__input-type-select"
+                >
+                  <option value="admin">Admin</option>
+                  <option value="polisher">Mold Polisher</option>
+                  <option value="spotter">Spotter</option>
+                </select>
+              </div>
+              <div className="register__btn">
+                <input
+                  className="register__btn-input"
+                  type="button"
+                  value="Register"
+                  onClick={handleRegister}
+                />
+              </div>
+              <div className="register__text">
+                Already have an account?{" "}
+                <Link to={`/login`}>
+                  <span className="register__text-link">Login now</span>
+                </Link>
+              </div>
+            </div>
           </div>
-          <div className="register__field">
-            <label className="register__field-label" htmlFor="role">
-              Role
-            </label>
-            <select
-              className="register__field-select"
-              id="role"
-              name="role"
-              value={formData.role}
-              onChange={handleInputChange}
-            >
-              <option value="admin">Admin</option>
-              <option value="polisher">Mold Polisher</option>
-              <option value="spotter">Spotter</option>
-            </select>
-          </div>
-          <button
-            className="register__field-btn"
-            type="button"
-            onClick={handleRegister}
-          >
-            Register
-          </button>
         </form>
       </div>
-    </div>
+    </section>
   );
 };
 
