@@ -26,10 +26,6 @@ function App() {
             element={<InventoryPage isDarkMode={isDarkMode} />}
           />
           <Route
-            path="/inventory/edit/:id"
-            element={<InventoryPage isDarkMode={isDarkMode} />}
-          />
-          <Route
             path="/signup"
             element={<RegisterPage isDarkMode={isDarkMode} />}
           />
