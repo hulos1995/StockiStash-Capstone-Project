@@ -4,6 +4,8 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import ItemModal from "../../components/ItemModal/ItemModal";
 import search from "../../assets/images/search-24px.svg";
+import edit from "../../assets/images/edit-24px.svg";
+import del from "../../assets/images/delete_outline-24px.svg";
 
 const InventoryPage = ({ isDarkMode }) => {
   const { id } = useParams();
@@ -91,21 +93,34 @@ const InventoryPage = ({ isDarkMode }) => {
                   <p className="inventory__item-description">
                     Quantity: {item.quantity}
                   </p>
-                  <p className="inventory__item-description">
-                    Status:{" "}
-                    <span
-                      className={`inventory__item-status ${
-                        item.status === "Out of Stock"
-                          ? "inventory__item-status--outstock"
-                          : "inventory__item-status--instock"
-                      }`}
-                    >
-                      {item.status}
-                    </span>
-                  </p>
-                  <a href={item.link} className="inventory__item-link">
-                    Click here to buy
-                  </a>
+                  <div className="inventory__item-container">
+                    <p className="inventory__item-description">
+                      Status:{" "}
+                      <span
+                        className={`inventory__item-status ${
+                          item.status === "Out of Stock"
+                            ? "inventory__item-status--outstock"
+                            : "inventory__item-status--instock"
+                        }`}
+                      >
+                        {item.status}
+                      </span>
+                    </p>
+                  </div>
+                  <div className="inventory__item-links">
+                    <div className="inventory__item-link">
+                      <a
+                        href={item.link}
+                        className="inventory__item-link-hyper"
+                      >
+                        Click here to buy
+                      </a>
+                    </div>
+                    <div className="inventory__item-links-logo">
+                      <img src={edit} alt={`${edit} logo`} />
+                      <img src={del} alt={`${del} logo`} />
+                    </div>
+                  </div>
                 </div>
               </div>
             </Link>

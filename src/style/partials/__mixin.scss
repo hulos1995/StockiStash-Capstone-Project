@@ -71,10 +71,10 @@
 @mixin mobile-tags-not-stocked {
   height: 24px;
   width: auto;
-  padding: 0 0.5rem;
+  padding: 0.25rem 0.75rem;
   border-radius: 20px;
-  color: $background-dark;
-  background-color: rgba($color: #c94515, $alpha: 0.1);
+  color: white;
+  background-color: rgba($color: #b71c1c, $alpha: 0.7);
 }
 @mixin modal-btn {
   width: 30px;
