@@ -3,13 +3,13 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import HomePage from "./pages/HomePage/HomePage";
 import InventoryPage from "./pages/InventoryPage/InventoryPage";
-import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import Header from "./components/Header/Header";
 import AuthPage from "./pages/AuthPage/AuthPage";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [authToken, setAuthToken] = useState(null);
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
   return (
     <>
@@ -31,11 +31,15 @@ function App() {
           />
           <Route
             path="/login"
-            element={<LoginPage isDarkMode={isDarkMode} />}
+            element={
+              <LoginPage isDarkMode={isDarkMode} setAuthToken={setAuthToken} />
+            }
           />
           <Route
             path="/profile"
-            element={<ProfilePage isDarkMode={isDarkMode} />}
+            element={
+              <ProfilePage isDarkMode={isDarkMode} authToken={authToken} />
+            }
           />
         </Routes>
       </BrowserRouter>
