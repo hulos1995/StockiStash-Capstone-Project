@@ -4,6 +4,8 @@ import axios from "axios";
 import { Link, useParams } from "react-router-dom";
 import ItemModal from "../../components/ItemModal/ItemModal";
 import search from "../../assets/images/search-24px.svg";
+import edit from "../../assets/images/edit-24px.svg";
+import del from "../../assets/images/delete_outline-24px.svg";
 
 const InventoryPage = ({ isDarkMode }) => {
   const { id } = useParams();
@@ -76,21 +78,26 @@ const InventoryPage = ({ isDarkMode }) => {
         />
         {searchData.map((item) => (
           <div key={item.id} className="inventory__item-wrapper">
-            <Link to={`/inventory/${item.id}`} onClick={() => showModal(item)}>
-              <div className="inventory__item">
+            <div className="inventory__item">
+              <Link
+                to={`/inventory/${item.id}`}
+                onClick={() => showModal(item)}
+              >
                 <img
                   src={item.image}
                   alt={item.name}
                   className="inventory__item-image"
                 />
-                <div className="inventory__item-details">
-                  <h3 className="inventory__item-name">{item.item_name}</h3>
-                  <p className="inventory__item-description">
-                    {item.description}
-                  </p>
-                  <p className="inventory__item-description">
-                    Quantity: {item.quantity}
-                  </p>
+              </Link>
+              <div className="inventory__item-details">
+                <h3 className="inventory__item-name">{item.item_name}</h3>
+                <p className="inventory__item-description">
+                  {item.description}
+                </p>
+                <p className="inventory__item-description">
+                  Quantity: {item.quantity}
+                </p>
+                <div className="inventory__item-container">
                   <p className="inventory__item-description">
                     Status:{" "}
                     <span
@@ -103,12 +110,20 @@ const InventoryPage = ({ isDarkMode }) => {
                       {item.status}
                     </span>
                   </p>
-                  <a href={item.link} className="inventory__item-link">
-                    Click here to buy
-                  </a>
+                </div>
+                <div className="inventory__item-links">
+                  <div className="inventory__item-link">
+                    <a href={item.link} className="inventory__item-link-hyper">
+                      Click here to buy
+                    </a>
+                  </div>
+                  <div className="inventory__item-links-logo">
+                    <img src={edit} alt={`${edit} logo`} />
+                    <img src={del} alt={`${del} logo`} />
+                  </div>
                 </div>
               </div>
-            </Link>
+            </div>
           </div>
         ))}
       </div>

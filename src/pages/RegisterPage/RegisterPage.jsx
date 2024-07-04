@@ -139,20 +139,20 @@ const RegisterPage = ({ isDarkMode }) => {
                   <option value="spotter">Spotter</option>
                 </select>
               </div>
-              <div className="register__btn">
-                <input
-                  className="register__btn-input"
-                  type="button"
-                  value="Register"
-                  onClick={handleRegister}
-                />
-              </div>
-              <div className="register__text">
-                Already have an account?{" "}
-                <Link to={`/login`}>
+              <Link to={`/login`}>
+                <div className="register__btn">
+                  <input
+                    className="register__btn-input"
+                    type="button"
+                    value="Register"
+                    onClick={handleRegister}
+                  />
+                </div>
+                <div className="register__text">
+                  Already have an account?{" "}
                   <span className="register__text-link">Login now</span>
-                </Link>
-              </div>
+                </div>
+              </Link>
             </div>
           </div>
         </form>

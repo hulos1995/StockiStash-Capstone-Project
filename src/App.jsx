@@ -6,7 +6,7 @@ import InventoryPage from "./pages/InventoryPage/InventoryPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import Header from "./components/Header/Header";
-import AuthPage from "./pages/AuthPage/AuthPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [authToken, setAuthToken] = useState(null);
@@ -26,8 +26,12 @@ function App() {
             element={<InventoryPage isDarkMode={isDarkMode} />}
           />
           <Route
+            path="/inventory/edit/:id"
+            element={<InventoryPage isDarkMode={isDarkMode} />}
+          />
+          <Route
             path="/signup"
-            element={<AuthPage isDarkMode={isDarkMode} />}
+            element={<RegisterPage isDarkMode={isDarkMode} />}
           />
           <Route
             path="/login"
