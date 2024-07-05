@@ -101,6 +101,13 @@
     @include tablet {
       font-size: 1rem;
       padding: 10px 1.25rem;
+      &-about {
+        display: flex;
+        flex-wrap: wrap;
+        @include desktop {
+          flex-direction: row;
+        }
+      }
     }
     &-active {
       background-color: $page-background;
@@ -120,6 +127,11 @@
     }
   }
   &__section {
+    &-about {
+      @include desktop {
+        width: 50%;
+      }
+    }
     &-title {
       font-size: 1rem;
       margin-bottom: 0.75rem;
@@ -144,9 +156,6 @@
       animation: slideUp 1.5s ease-in-out;
       @include tablet {
         font-size: 1rem;
-        justify-content: start;
-        margin-right: 12rem;
-        gap: 3rem;
       }
       @include desktop {
         justify-content: flex-start;

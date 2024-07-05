@@ -5,6 +5,7 @@ import linkedin from "../../assets/images/linkedin.png";
 import github from "../../assets/images/github.png";
 import facebook from "../../assets/images/facebook.png";
 import { Link } from "react-router-dom";
+import GallarySlider from "../GallarySlider/GallarySlider";
 const PageBody = () => {
   const [activeTab, setActiveTab] = useState(1);
   return (
@@ -73,15 +74,19 @@ const PageBody = () => {
           </div>
         )}
         {activeTab === 2 && (
-          <div className="page-body__tab-pane">
-            <h2 className="page-body__section-title">About Us</h2>
-            <p className="page-body__section-description">
-              I provide comprehensive inventory solutions designed to streamline
-              operations for businesses of all sizes. Our platform ensures
-              efficient tracking, affordable storage management, and easy item
-              identification, helping maintain a steady workflow and supporting
-              employees with visual and detailed information.
-            </p>
+          <div className="page-body__tab-about">
+            <div className="page-body__section-about">
+              <h2 className="page-body__section-title">About</h2>
+              <p className="page-body__section-description">
+                This website provides effective inventory solutions designed to
+                simplify operations for businesses of any size. The platform
+                ensures efficient tracking, affordable storage management, and
+                easy item identification, helping maintain a steady workflow. It
+                also supports employees with clear, detailed information and
+                visuals. Besides are jobs that have been polished from strach.
+              </p>
+            </div>
+            <GallarySlider />
           </div>
         )}
         {activeTab === 3 && (
