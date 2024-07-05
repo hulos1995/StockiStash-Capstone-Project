@@ -4,6 +4,7 @@ import inventory from "../../assets/images/carton.png";
 import signup from "../../assets/images/signup.png";
 import login from "../../assets/images/login.png";
 import Slider from "../Slider/Slider";
+import { Link } from "react-router-dom";
 
 const PageBody = ({ isDarkMode }) => {
   return (
@@ -15,7 +16,7 @@ const PageBody = ({ isDarkMode }) => {
 
             <button className="home-container-clockin-btn">
               <img
-                className="home-container-clockin-img"
+                className="home-container-clockin-img--clock"
                 src={clock}
                 alt="Clock in logo"
               />
@@ -24,38 +25,44 @@ const PageBody = ({ isDarkMode }) => {
           </div>
           <div className="home-container-inventory">
             <h4 className="home-container-inventory-title">Inventory</h4>
-            <button className="home-container-inventory-btn">
-              <img
-                className="home-container-inventory-img"
-                src={inventory}
-                alt="Inventory logo"
-              />
-              Inventory
-            </button>
+            <Link to={"/inventory"}>
+              <button className="home-container-inventory-btn">
+                <img
+                  className="home-container-inventory-img--inventory"
+                  src={inventory}
+                  alt="Inventory logo"
+                />
+                Inventory
+              </button>
+            </Link>
           </div>
         </div>
         <div className="home-wrapper">
           <div className="home-wrapper-signup">
             <h4 className="home-wrapper-signup-title">Register</h4>
-            <button className="home-wrapper-signup-btn">
-              <img
-                className="home-wrapper-signup-img"
-                src={signup}
-                alt="Signup logo"
-              />
-              Signup
-            </button>
+            <Link to={"/signup"}>
+              <button className="home-wrapper-signup-btn">
+                <img
+                  className="home-wrapper-signup-img--signup"
+                  src={signup}
+                  alt="Signup logo"
+                />
+                Signup
+              </button>
+            </Link>
           </div>
           <div className="home-wrapper-login">
             <h4 className="home-wrapper-login-title">Login</h4>
-            <button className="home-wrapper-login-btn">
-              <img
-                className="home-wrapper-login-img"
-                src={login}
-                alt="Login logo"
-              />
-              Login
-            </button>
+            <Link to={"/login"}>
+              <button className="home-wrapper-login-btn">
+                <img
+                  className="home-wrapper-login-img--login"
+                  src={login}
+                  alt="Login logo"
+                />
+                Login
+              </button>
+            </Link>
           </div>
         </div>
       </div>

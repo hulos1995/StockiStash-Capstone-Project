@@ -6,8 +6,7 @@
 .home {
   background-color: $background-light;
   color: $text-primary;
-  @include font;
-
+  font-family: "prata";
   &--dark {
     background-color: $background-dark;
     color: $text-secondary;
@@ -34,6 +33,7 @@
       width: 50%;
       @include center;
       flex-direction: column;
+      gap: 0.5rem;
       @include tablet {
         width: 30vw;
       }
@@ -61,15 +61,28 @@
       }
 
       &-img {
-        position: absolute;
-        width: 24px;
-        left: 1.5rem;
-        top: 4rem;
-        @include tablet {
-          width: 30px;
-          position: relative;
-          top: 0;
-          left: 0.75rem;
+        &--clock {
+          position: absolute;
+          width: 24px;
+          left: 1.25rem;
+          top: 2.2rem;
+          @include tablet {
+            width: 30px;
+            position: relative;
+            top: 0;
+            left: 0.75rem;
+          }
+        }
+        &--inventory {
+          position: absolute;
+          right: 1.5rem;
+          width: 24px;
+          @include tablet {
+            width: 30px;
+            position: relative;
+            top: 0;
+            right: -0.75rem;
+          }
         }
       }
     }
@@ -88,6 +101,7 @@
       width: 50%;
       @include center;
       flex-direction: column;
+      gap: 0.5rem;
       @include tablet {
         width: 30vw;
       }
@@ -115,15 +129,27 @@
       }
 
       &-img {
-        position: absolute;
-        width: 24px;
-        left: 1.5rem;
-        top: 4rem;
-        @include tablet {
-          width: 30px;
-          position: relative;
-          top: 0;
-          left: 0.75rem;
+        &--signup {
+          position: absolute;
+          left: 1.25rem;
+          width: 24px;
+          @include tablet {
+            width: 30px;
+            position: relative;
+            top: 0;
+            left: 0.75rem;
+          }
+        }
+        &--login {
+          position: absolute;
+          right: 1.5rem;
+          width: 24px;
+          @include tablet {
+            width: 30px;
+            position: relative;
+            top: 0;
+            right: -0.75rem;
+          }
         }
       }
     }
