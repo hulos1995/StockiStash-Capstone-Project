@@ -2,8 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./ItemModal.scss";
 import close from "../../assets/images/close-24px.svg";
-import del from "../../assets/images/delete_outline-24px.svg";
-import edit from "../../assets/images/edit-24px.svg";
 const ItemModal = ({ show, handleClose, selectedItem }) => {
   const [selectedGrit, setSelectedGrit] = useState(null);
   const [count, setCount] = useState(0);
@@ -33,7 +31,7 @@ const ItemModal = ({ show, handleClose, selectedItem }) => {
   // Close the modal and navigate to the inventory page
   const closeAndNavigate = () => {
     handleClose();
-    navigate("/inventory");
+    navigate("/profile");
   };
   // Handle backdrop clicks to close the modal
   const handleBackdropClick = (e) => {

@@ -17,7 +17,7 @@ const EditInventoryModal = ({ show, handleClose, itemId, updateInventory }) => {
       fetchItemData(itemId);
     }
   }, [itemId, base_URL]);
-
+  //verify user information, only admin will be able to edit
   const fetchItemData = async (id) => {
     try {
       const token = localStorage.getItem("authToken");
@@ -73,7 +73,6 @@ const EditInventoryModal = ({ show, handleClose, itemId, updateInventory }) => {
   if (!show) {
     return null;
   }
-
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 p-4">
       <div className="bg-[#fffff0] p-6 rounded-lg shadow-lg w-full max-w-2xl mx-auto">
