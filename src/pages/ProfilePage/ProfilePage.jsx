@@ -3,7 +3,7 @@ import axios from "axios";
 import InventoryPage from "../InventoryPage/InventoryPage";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-const ProfilePage = ({ isDarkMode, userRole }) => {
+const ProfilePage = ({ isDarkMode }) => {
   const [userData, setUserData] = useState(null);
   const base_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const ProfilePage = ({ isDarkMode, userRole }) => {
                 </p>
               </div>
               <button
-                className="mt-4 sm:mt-0 sm:ml-auto bg-gray-400 text-white font-bold py-2 px-4 rounded-lg shadow-md "
+                className="mt-4 sm:mt-0 sm:ml-auto bg-gray-400 text-white font-bold py-2 px-4 rounded-lg shadow-md"
                 onClick={handleLogout}
               >
                 Logout
@@ -65,7 +65,12 @@ const ProfilePage = ({ isDarkMode, userRole }) => {
           <p className="text-center">Loading user data...</p>
         )}
         <div className="mt-7 rounded-2xl">
-          <InventoryPage isDarkMode={isDarkMode} userRole={userRole} />
+          {userData && (
+            <InventoryPage
+              isDarkMode={isDarkMode}
+              userRole={userData.user_role}
+            />
+          )}
         </div>
       </div>
     </div>
