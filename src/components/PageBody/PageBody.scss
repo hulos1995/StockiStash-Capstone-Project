@@ -2,130 +2,214 @@
 @use "../../style/partials/__mixin" as *;
 @use "../../style/partials/__typography" as *;
 @use "../../style/partials/__reset" as *;
-
-.home {
-  background-color: $background-light;
-  color: $text-primary;
-  @include font;
-
-  &--dark {
-    background-color: $background-dark;
-    color: $text-secondary;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-
-  &-containers {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.page-body {
+  &__hero {
+    background: url("../../assets/images/background-1.jpg");
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 6rem 1.25rem;
+    color: #fff;
+    animation: fadeIn 2s ease-in-out;
     @include tablet {
+      background: url("../../assets/images/background-2.jpg");
+      background-size: cover;
+      background-position: center;
+      text-align: center;
+      padding: 6rem 1.25rem;
+      color: #fff;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    &-content {
+      max-width: 600px;
+      margin: 0 auto;
+      margin-bottom: 3rem;
+      animation: slideUp 1.5s ease-in-out;
+    }
+    &-title {
+      font-size: 1rem;
+      @include tablet {
+        font-size: 2rem;
+      }
+      @include desktop {
+        font-size: 2.25em;
+      }
+      margin-bottom: 1.25rem;
+    }
+    &-description {
+      font-size: 0.75rem;
+      margin-bottom: 1.25rem;
+      @include tablet {
+        font-size: 1.5rem;
+      }
+    }
+  }
+  &__cta-button {
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem;
+    border-radius: 25px;
+    @include tablet {
+      font-size: 1rem;
+    }
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    background-color: $page-secondary;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: darken($page-secondary, 10%);
+    }
+  }
+  &__tabs {
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem 0;
+    gap: 0.5rem;
+    @include tablet {
+      margin: 1.25rem 0;
+      gap: 0.75rem;
+    }
+  }
+  &__tab {
+    padding: 5px 0.75rem;
+    font-size: 0.75rem;
+    color: $page-primary;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px 8px 0 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    @include tablet {
+      font-size: 1rem;
+      padding: 10px 1.25rem;
+      &-about {
+        display: flex;
+        flex-wrap: wrap;
+        @include desktop {
+          flex-direction: row;
+        }
+      }
+    }
+    &-active {
+      background-color: $page-background;
+      border-bottom: 1px solid $page-background;
+      &:hover {
+        background-color: lighten($page-background, 10%);
+      }
+    }
+    &-content {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      background-color: $page-background;
+      animation: fadeIn 1.5s ease-in-out;
+      @include tablet {
+        padding-left: 3rem;
+      }
+    }
+  }
+  &__section {
+    &-about {
+      @include desktop {
+        width: 50%;
+      }
+    }
+    &-title {
+      font-size: 1rem;
+      margin-bottom: 0.75rem;
+      color: $page-primary;
+      animation: slideUp 1.5s ease-in-out;
+      @include tablet {
+        font-size: 1.5rem;
+        margin-bottom: 1.25rem;
+      }
+      @include desktop {
+        font-size: 2rem;
+      }
+    }
+    &-description {
       display: flex;
       justify-content: space-between;
-    }
-  }
-
-  &-container {
-    display: flex;
-    position: relative;
-    @include tablet {
-      width: 50%;
-    }
-
-    &-clockin,
-    &-inventory,
-    &-signup,
-    &-login {
-      width: 50%;
-      @include center;
-      flex-direction: column;
+      font-size: 0.75rem;
+      margin-bottom: 1.25rem;
+      max-width: 800px;
+      margin: 0 auto;
+      color: $page-text;
+      animation: slideUp 1.5s ease-in-out;
       @include tablet {
-        width: 30vw;
-      }
-
-      &-title {
         font-size: 1rem;
-        @include tablet {
-          font-size: 1.5rem;
-        }
       }
-
-      &-btn {
-        width: 90%;
-        height: 30px;
-        @include button;
-        @include tablet {
-          height: 40px;
-          width: 150px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding-right: 2rem;
-          padding-left: 0;
-        }
+      @include desktop {
+        justify-content: flex-start;
+        margin: 0;
+        gap: 3rem;
       }
-
-      &-img {
-        position: absolute;
+    }
+    &-container {
+      &-image {
         width: 24px;
-        left: 1.5rem;
-        top: 4rem;
+        margin-left: 0.5rem;
+        margin-bottom: 0.5rem;
         @include tablet {
           width: 30px;
-          position: relative;
-          top: 0;
-          left: 0.75rem;
+        }
+      }
+      p {
+        margin-bottom: 0.5rem;
+        @include tablet {
+          margin-bottom: 1rem;
         }
       }
     }
   }
-
-  &-wrapper {
-    display: flex;
-    position: relative;
-    @include tablet {
-      justify-content: space-between;
-      width: 50vw;
+  &__services {
+    &-list {
+      list-style: none;
+      max-width: 800px;
+      margin: 1.25rem auto;
+      animation: fadeIn 1.5s ease-in-out;
     }
-
-    &-signup,
-    &-login {
-      width: 50%;
-      @include center;
-      flex-direction: column;
+    &-item {
+      font-size: 0.75rem;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      transition: transform 0.3s;
       @include tablet {
-        width: 30vw;
-      }
-
-      &-title {
         font-size: 1rem;
-        @include tablet {
-          font-size: 1.5rem;
-        }
       }
-
-      &-btn {
-        width: 90%;
-        height: 30px;
-        @include button;
-        @include tablet {
-          height: 40px;
-          width: 150px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding-right: 2.5rem;
-          padding-left: 0;
-        }
+      &:hover {
+        transform: translateY(-5px);
       }
-
-      &-img {
-        position: absolute;
-        width: 24px;
-        left: 1.5rem;
-        top: 4rem;
-        @include tablet {
-          width: 30px;
-          position: relative;
-          top: 0;
-          left: 0.75rem;
-        }
-      }
+    }
+  }
+  &__contact-info {
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+    color: $page-text;
+    animation: fadeIn 1.5s ease-in-out;
+    @include tablet {
+      font-size: 1rem;
     }
   }
 }
