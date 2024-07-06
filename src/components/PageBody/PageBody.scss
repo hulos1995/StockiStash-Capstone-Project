@@ -1,7 +1,7 @@
-@use "../../style/partials/__variable" as *;
-@use "../../style/partials/__mixin" as *;
-@use "../../style/partials/__typography" as *;
-@use "../../style/partials/__reset" as *;
+@use '../../style/partials/__variable' as *;
+@use '../../style/partials/__mixin' as *;
+@use '../../style/partials/__typography' as *;
+@use '../../style/partials/__reset' as *;
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -22,7 +22,7 @@
 }
 .page-body {
   &__hero {
-    background: url("../../assets/images/background-1.jpg");
+    background: url('../../assets/images/background-1.jpg');
     background-size: cover;
     background-position: center;
     text-align: center;
@@ -30,7 +30,7 @@
     color: #fff;
     animation: fadeIn 2s ease-in-out;
     @include tablet {
-      background: url("../../assets/images/background-2.jpg");
+      background: url('../../assets/images/background-2.jpg');
       background-size: cover;
       background-position: center;
       text-align: center;
