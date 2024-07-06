@@ -12,6 +12,7 @@ const ProfilePage = ({ isDarkMode }) => {
       const token = localStorage.getItem("authToken");
       if (!token) {
         console.error("No authentication token found");
+        navigate("/login");
         return;
       }
       try {
