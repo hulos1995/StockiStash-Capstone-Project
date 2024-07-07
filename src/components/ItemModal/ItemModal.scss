@@ -1,7 +1,7 @@
-@use "../../style/partials/__variable" as *;
-@use "../../style/partials/__mixin" as *;
-@use "../../style/partials/__typography" as *;
-@use "../../style/partials/__reset" as *;
+@use '../../style/partials/__variable' as *;
+@use '../../style/partials/__mixin' as *;
+@use '../../style/partials/__typography' as *;
+@use '../../style/partials/__reset' as *;
 .modal {
   position: fixed;
   top: 0;
@@ -120,6 +120,18 @@
     &-incre {
       @include modal-btn;
     }
+    &-add {
+      @include modal-btn;
+      width: 70px;
+      font-size: 0.75rem;
+      @include tablet {
+        width: 90px;
+        font-size: 1rem;
+      }
+      @include desktop {
+        margin-left: 2.5rem;
+      }
+    }
     &-close {
       @include modal-btn;
       width: 60px;
@@ -131,12 +143,19 @@
         font-size: 1rem;
         padding-right: 0.75rem;
       }
+      @include desktop {
+        margin-left: 2.5rem;
+      }
     }
   }
   &-container {
     position: relative;
     width: 50%;
-    margin-left: 3.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-left: 3rem;
+    margin-top: 0.5rem;
     @include tablet {
       position: absolute;
       bottom: 2.5rem;
@@ -146,21 +165,22 @@
     }
     @include desktop {
       position: relative;
-      padding-top: 3.5rem;
-      display: block;
+      gap: 1rem;
+      margin-left: 18rem;
     }
     &-img {
       position: absolute;
       width: 18px;
       left: 0.75rem;
-      top: 0.4rem;
+      top: 2.75rem;
       @include tablet {
         left: 0.75rem;
-        top: 0.15rem;
+        top: 2.6rem;
         width: 24px;
       }
       @include desktop {
-        top: 3.75rem;
+        top: 3.15rem;
+        left: 2.5rem;
       }
     }
   }
