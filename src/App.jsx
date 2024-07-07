@@ -1,17 +1,19 @@
-import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import HomePage from "./pages/HomePage/HomePage";
-import InventoryPage from "./pages/InventoryPage/InventoryPage";
-import LoginPage from "./pages/LoginPage/LoginPage";
-import ProfilePage from "./pages/ProfilePage/ProfilePage";
-import Header from "./components/Header/Header";
-import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import { decodeToken } from "./utils/decodeToken";
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import HomePage from './pages/HomePage/HomePage';
+import InventoryPage from './pages/InventoryPage/InventoryPage';
+import LoginPage from './pages/LoginPage/LoginPage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
+import Header from './components/Header/Header';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
+import { decodeToken } from './utils/decodeToken';
+
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
+  const [authToken, setAuthToken] = useState(localStorage.getItem('authToken'));
   const [isLoggedIn, setIsLoggedIn] = useState(!!authToken);
+
   const toggleDarkMode = () => setIsDarkMode(!isDarkMode);
 
   useEffect(() => {
@@ -25,13 +27,13 @@ function App() {
   }, [authToken]);
 
   const handleLogin = (token) => {
-    localStorage.setItem("authToken", token);
+    localStorage.setItem('authToken', token);
     setAuthToken(token);
     setIsLoggedIn(true);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("authToken");
+    localStorage.removeItem('authToken');
     setAuthToken(null);
     setIsLoggedIn(false);
   };
@@ -46,27 +48,43 @@ function App() {
           handleLogout={handleLogout}
         />
         <Routes>
-          <Route path="/" element={<HomePage isDarkMode={isDarkMode} />} />
           <Route
-            path="/inventory"
-            element={<InventoryPage isDarkMode={isDarkMode} />}
+            path='/'
+            element={<HomePage isDarkMode={isDarkMode} />}
           />
           <Route
-            path="/inventory/:id"
-            element={<InventoryPage isDarkMode={isDarkMode} />}
-          />
-          <Route
-            path="/signup"
-            element={<RegisterPage isDarkMode={isDarkMode} />}
-          />
-          <Route
-            path="/login"
+            path='/inventory'
             element={
-              <LoginPage isDarkMode={isDarkMode} setAuthToken={handleLogin} />
+              <InventoryPage
+                isDarkMode={isDarkMode}
+                authToken={authToken}
+              />
             }
           />
           <Route
-            path="/profile"
+            path='/inventory/:id'
+            element={
+              <InventoryPage
+                isDarkMode={isDarkMode}
+                authToken={authToken}
+              />
+            }
+          />
+          <Route
+            path='/signup'
+            element={<RegisterPage isDarkMode={isDarkMode} />}
+          />
+          <Route
+            path='/login'
+            element={
+              <LoginPage
+                isDarkMode={isDarkMode}
+                setAuthToken={handleLogin}
+              />
+            }
+          />
+          <Route
+            path='/profile'
             element={
               isLoggedIn ? (
                 <ProfilePage
@@ -75,21 +93,24 @@ function App() {
                   handleLogout={handleLogout}
                 />
               ) : (
-                <Navigate to="/login" replace />
+                <Navigate
+                  to='/login'
+                  replace
+                />
               )
             }
           />
         </Routes>
       </BrowserRouter>
       <ToastContainer
-        position="top-right"
+        position='top-right'
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
         rtl={false}
-        theme="light"
-        style={{ width: "300px" }}
+        theme='light'
+        style={{ width: '300px' }}
       />
     </>
   );
