@@ -3,6 +3,7 @@ import axios from 'axios';
 import InventoryPage from '../InventoryPage/InventoryPage';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import remove from '../../assets/images/remove.png';
 
 const ProfilePage = ({ isDarkMode, authToken }) => {
   const [userData, setUserData] = useState(null);
@@ -12,7 +13,7 @@ const ProfilePage = ({ isDarkMode, authToken }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getUserData = async () => {
+    const fetchUserData = async () => {
       const token = localStorage.getItem('authToken');
       if (!token) {
         console.error('No authentication token found');
@@ -24,14 +25,14 @@ const ProfilePage = ({ isDarkMode, authToken }) => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUserData(response.data);
-        getCartItems(response.data.id);
+        getCartItems();
       } catch (error) {
-        console.error('Error fetching user data', error);
+        console.error('Error fetching user data:', error);
         toast.error('Failed to fetch user data');
       }
     };
 
-    const getCartItems = async (userId) => {
+    const getCartItems = async () => {
       const token = localStorage.getItem('authToken');
       try {
         const res = await axios.get(`${base_URL}/cart`, {
@@ -43,7 +44,7 @@ const ProfilePage = ({ isDarkMode, authToken }) => {
       }
     };
 
-    getUserData();
+    fetchUserData();
   }, [base_URL, authToken, navigate]);
 
   const handleLogout = () => {
@@ -64,6 +65,39 @@ const ProfilePage = ({ isDarkMode, authToken }) => {
       setCartItems(res.data);
     } catch (error) {
       console.error('Error updating cart items:', error);
+    }
+  };
+
+  const handleIncrease = async (inventory_id) => {
+    const token = localStorage.getItem('authToken');
+    try {
+      await axios.put(`${base_URL}/cart/increment`, { inventory_id }, { headers: { Authorization: `Bearer ${token}` } });
+      updateCartItems();
+    } catch (error) {
+      console.error('Error incrementing item quantity:', error);
+    }
+  };
+
+  const handleDecrese = async (inventory_id, currentQuantity) => {
+    if (currentQuantity <= 1) return;
+    const token = localStorage.getItem('authToken');
+    try {
+      await axios.put(`${base_URL}/cart/decrement`, { inventory_id }, { headers: { Authorization: `Bearer ${token}` } });
+      updateCartItems();
+    } catch (error) {
+      console.error('Error decrementing item quantity:', error);
+    }
+  };
+
+  const handleRemove = async (inventory_id) => {
+    const token = localStorage.getItem('authToken');
+    try {
+      await axios.delete(`${base_URL}/cart/${inventory_id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      updateCartItems();
+    } catch (error) {
+      console.error('Error removing item from cart:', error);
     }
   };
 
@@ -103,15 +137,41 @@ const ProfilePage = ({ isDarkMode, authToken }) => {
                         key={item.id}
                         className='mb-2'
                       >
-                        <div className='flex items-center'>
-                          <img
-                            src={item.image}
-                            alt={item.item_name}
-                            className='w-10 h-10 mr-2'
-                          />
-                          <div>
-                            <p className='font-bold'>{item.item_name}</p>
-                            <p>Quantity: {item.quantity}</p>
+                        <div className='flex items-center justify-between'>
+                          <div className='flex items-center'>
+                            <img
+                              src={item.image}
+                              alt={item.item_name}
+                              className='w-10 h-10 mr-2'
+                            />
+                            <div>
+                              <p className='font-bold'>{item.item_name}</p>
+                              <p>Quantity: {item.quantity}</p>
+                            </div>
+                          </div>
+                          <div className='flex items-center'>
+                            <button
+                              className='px-2 py-1 bg-gray-300 rounded'
+                              onClick={() => handleDecrese(item.inventory_id, item.quantity)}
+                            >
+                              -
+                            </button>
+                            <button
+                              className='px-2 py-1 bg-gray-300 rounded ml-2'
+                              onClick={() => handleIncrease(item.inventory_id)}
+                            >
+                              +
+                            </button>
+                            <button
+                              className='ml-2'
+                              onClick={() => handleRemove(item.inventory_id)}
+                            >
+                              <img
+                                src={remove}
+                                alt='remove'
+                                className='w-6 h-6'
+                              />
+                            </button>
                           </div>
                         </div>
                       </li>
