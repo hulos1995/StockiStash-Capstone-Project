@@ -154,32 +154,33 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-left: 3rem;
-    margin-top: 0.5rem;
+    margin-top: 1rem;
     @include tablet {
       position: absolute;
       bottom: 2.5rem;
       right: 2rem;
       margin-left: 0;
       width: 15%;
+      margin-top: 0.5rem;
     }
+
     @include desktop {
       position: relative;
       gap: 1rem;
-      margin-left: 18rem;
+      margin-left: 20rem;
     }
     &-img {
       position: absolute;
       width: 18px;
       left: 0.75rem;
-      top: 2.75rem;
+      top: 0.4rem;
       @include tablet {
         left: 0.75rem;
-        top: 2.6rem;
+        top: 0.25rem;
         width: 24px;
       }
       @include desktop {
-        top: 3.15rem;
+        top: 0.25rem;
         left: 2.5rem;
       }
     }
