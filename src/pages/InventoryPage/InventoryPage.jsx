@@ -152,6 +152,8 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
                     <div className='inventory__item-link'>
                       <a
                         href={item.link}
+                        target="_blank"
+                         rel="noopener noreferrer"
                         className='inventory__item-link-hyper'
                       >
                         Click here to buy

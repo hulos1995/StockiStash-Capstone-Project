@@ -3,12 +3,12 @@
 @use "../../style/partials/__typography" as *;
 @use "../../style/partials/__reset" as *;
 .inventory {
-  font-family: "prata";
+  font-family: "prata"; 
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 2rem;
-  background-color: #fff3cd;
+  background-color: #fff3cd; 
   &--dark {
     background-color: $background-dark;
     color: $text-secondary;
@@ -84,7 +84,7 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 2rem;
     width: 100%;
-    height:65vh;
+    height:70vh;
     overflow-y: auto;
     @include tablet {
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

@@ -94,7 +94,8 @@ const PageBody = () => {
             <h2 className="page-body__section-title">Contact Information</h2>
             <div className="page-body__section-description">
               <div className="page-body__section-container">
-                <a href="https://www.linkedin.com/in/hoang-nguyen-bao/">
+                <a href="https://www.linkedin.com/in/hoang-nguyen-bao/ " target="_blank"  rel="noopener noreferrer"
+                >
                   <img
                     className="page-body__section-container-image"
                     src={linkedin}
@@ -104,7 +105,7 @@ const PageBody = () => {
                 </a>
               </div>
               <div className="page-body__section-container">
-                <a href="https://github.com/hulos1995">
+                <a                         target="_blank" href="https://github.com/hulos1995">
                   <img
                     className="page-body__section-container-image"
                     src={github}
@@ -114,7 +115,7 @@ const PageBody = () => {
                 </a>
               </div>
               <div className="page-body__section-container">
-                <a href="https://www.facebook.com/profile.php?id=100009348904627">
+                <a target="_blank"  rel="noopener noreferrer" href="https://www.facebook.com/profile.php?id=100009348904627">
                   <img
                     className="page-body__section-container-image"
                     src={facebook}
@@ -124,10 +125,10 @@ const PageBody = () => {
                 </a>
               </div>
             </div>
-            <p className="page-body__contact-info">
+            <a href="bao960045@yahoo.com" target="_blank" className="page-body__contact-info">
               Email: bao960045@yahoo.com
-            </p>
-            <p className="page-body__contact-info">Phone: +1 226-260-8402</p>
+            </a>
+            <a href="+1 226-260-8402" target="_blank" className="page-body__contact-info">Phone: +1 226-260-8402</a>
           </div>
         )}
       </div>
