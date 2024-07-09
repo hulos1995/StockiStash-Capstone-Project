@@ -13,6 +13,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
+    height:10dvh;
   }
   &--dark {
     background-color: $background-dark;
@@ -23,7 +24,7 @@
     left: 50%;
     transform: translateX(-50%);
     &-img {
-      width: 150px;
+      width: 180px;
     }
   }
   &__sidebar-toggle {
@@ -43,11 +44,13 @@
     padding: 1rem;
     background-color: inherit;
     transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-    opacity: 0;
-    padding-top: 0;      border-bottom-left-radius: 10px;
+     visibility: hidden;
+    padding-top: 0;     
+    border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 
     &--visible {
+      visibility: visible;
       transform: translateX(-50%) translateY(100%);
       opacity: 1;
       pointer-events: auto;
@@ -60,13 +63,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding-top: 0;
+    padding-top: 0.5rem;
     line-height: 1.5rem;
     font-size: 0.75rem;
     @include desktop {
       flex-direction: row;
       gap: 3rem;
-      padding-top: 1rem;
+      padding-top: 1.75rem;
       font-size: 1rem;
     }
     &-list {

@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Header.scss';
-import logo from '../../assets/images/logo.png';
-import logoDark from '../../assets/images/logo-dark.png';
+import logo from '../../assets/images/logos.png';
+import logoDark from '../../assets/images/logos-dark.png';
 import profile from '../../assets/images/profile.png';
 
 const Header = ({ isDarkMode, toggleDarkMode, isLoggedIn }) => {
