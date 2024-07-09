@@ -6,11 +6,11 @@ import github from "../../assets/images/github.png";
 import facebook from "../../assets/images/facebook.png";
 import { Link } from "react-router-dom";
 import GallarySlider from "../GallarySlider/GallarySlider";
-const PageBody = () => {
+const PageBody = ({isDarkMode}) => {
   const [activeTab, setActiveTab] = useState(1);
   return (
-    <div className="page-body page-body--tabbed-layout">
-      <div className="page-body__hero">
+    <main className="page-body page-body--tabbed-layout">
+      <section className="page-body__hero">
         <div className="page-body__hero-content">
           <h1 className="page-body__hero-title">
             Inventory Management Made Easy
@@ -22,7 +22,8 @@ const PageBody = () => {
             <button className="page-body__cta-button">Get Started</button>
           </Link>
         </div>
-      </div>
+      </section>
+      <section className={`page-body-container ${isDarkMode ? 'page-body-container--dark' : 'page-body-container--light'}`}>
       <div className="page-body__tabs">
         <button
           className={`page-body__tab ${
@@ -132,7 +133,8 @@ const PageBody = () => {
           </div>
         )}
       </div>
-    </div>
+      </section>
+    </main>
   );
 };
 

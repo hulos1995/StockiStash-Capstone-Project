@@ -39,7 +39,7 @@
       color: #fff;
       animation: fadeIn 2s ease-in-out;
     }
-
+    
     &-content {
       max-width: 600px;
       margin: 0 auto;
@@ -92,20 +92,38 @@
   &__tabs {
     display: flex;
     justify-content: center;
-    margin: 0.5rem 0;
+    padding: 0.5rem 0;
     gap: 0.5rem;
     @include tablet {
-      margin: 1.25rem 0;
+      padding-top: 1.25rem;
+      padding-bottom: 0.5rem;;
       gap: 0.75rem;
     }
   }
+  &-container{
+    background: $background-light;
+    &--dark {
+      background-color: $background-dark;
+      color: $text-secondary;
+      .register__form {
+        background-color: lighten($background-dark, 10%);
+      }
+    }
+    &--light {
+      background-color: $background-light;
+      color: $text-primary;
+      .register__form {
+        background-color: darken($background-light, 10%);
+      }
+    }
+  }
   &__tab {
-    padding: 5px 0.75rem;
+    padding:5px 0.75rem;
     font-size: 0.75rem;
     color: $page-primary;
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 8px 8px 0 0;
+    border-radius: 5px 8px 0 0;
     cursor: pointer;
     transition: background-color 0.3s;
     @include tablet {
