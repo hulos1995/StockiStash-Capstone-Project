@@ -3,11 +3,13 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import ItemModal from '../../components/ItemModal/ItemModal';
 import EditInventoryModal from '../../components/EditInventoryModal/EditInventoryModal';
+import ModalDelete from '../../components/ModalDelete/ModalDelete';  // Import ModalDelete
 import search from '../../assets/images/search-left.jpg';
 import edit from '../../assets/images/edit-24px.svg';
 import del from '../../assets/images/delete_outline-24px.svg';
 import './InventoryPage.scss';
 import { decodeToken } from '../../utils/decodeToken';
+import { toast } from "react-toastify";
 
 const InventoryPage = ({ isDarkMode, updateCartItems }) => {
   const { id } = useParams();
@@ -15,6 +17,7 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showItemModal, setShowItemModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false); // Add state for delete modal
   const [searchInput, setSearchInput] = useState('');
   const [userRole, setUserRole] = useState('guest');
   const base_URL = import.meta.env.VITE_API_URL;
@@ -82,6 +85,31 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
     setShowEditModal(false);
   };
 
+  const handleShowDeleteModal = (item) => {
+    setSelectedItem(item);
+    setShowDeleteModal(true);
+  };
+
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
+
+  const handleDeleteItem = async () => {
+    const token = localStorage.getItem('authToken');
+    try {
+      await axios.delete(`${base_URL}/inventory/${selectedItem.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setShowDeleteModal(false);
+      getItemData();
+      toast.success("Delete successful!")
+    } catch (error) {
+      console.error('Error deleting inventory item:', error);
+    }
+  };
+
   const handleSearchChange = (e) => {
     setSearchInput(e.target.value);
   };
@@ -121,6 +149,12 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
           handleClose={handleCloseEditModal}
           itemId={selectedItem?.id}
           updateInventory={getItemData}
+        />
+        <ModalDelete
+          isOpen={showDeleteModal}
+          onClose={handleCloseDeleteModal}
+          onConfirm={handleDeleteItem}
+          item={selectedItem}
         />
         {filteredInventoryData.map((item) => (
           <div
@@ -168,6 +202,7 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
                       <img
                         src={del}
                         alt={`${del} logo`}
+                        onClick={() => handleShowDeleteModal(item)}
                       />
                     </div>
                   </div>
