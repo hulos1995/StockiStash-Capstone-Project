@@ -183,14 +183,6 @@ const ItemModal = ({ show, handleClose, selectedItem, updateCartItems }) => {
             </div>
           )}
           <div className='modal-container'>
-            {selectedItem.quantity > 0 && (
-              <button
-                className='modal__btn-add'
-                onClick={handleAddToCart}
-              >
-                Add to Cart
-              </button>
-            )}{' '}
             <button
               className='modal__btn-close'
               onClick={closeAndNavigate}
@@ -202,6 +194,14 @@ const ItemModal = ({ show, handleClose, selectedItem, updateCartItems }) => {
               />
               Close
             </button>
+            {selectedItem.quantity > 0 && (
+              <button
+                className='modal__btn-add'
+                onClick={handleAddToCart}
+              >
+                Add to Cart
+              </button>     
+             )}
           </div>
         </div>
       </section>
