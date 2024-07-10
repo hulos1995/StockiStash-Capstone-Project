@@ -1,0 +1,92 @@
+@use "./__variable" as *;
+@use "./__typography" as *;
+@mixin tablet {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+@mixin desktop {
+  @media screen and (min-width: 1280px) {
+    @content;
+  }
+}
+@mixin big {
+  @media screen and (min-width: 1410px) {
+    @content;
+  }
+}
+@mixin border {
+  border: 3px solid black;
+}
+@mixin column {
+  display: flex;
+  flex-direction: column;
+}
+@mixin center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin font {
+  font-family: "prata";
+}
+@mixin button {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  color: #333;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
+    background-color: #ffd700;
+    color: #fff;
+  }
+}
+@mixin slider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  font-weight: 600;
+  color: #333;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
+    background-color: $background-dark;
+    color: #fff;
+  }
+}
+@mixin mobile-tags-stocked {
+  height: 20px;
+  width: auto;
+  padding: 0 0.5rem;
+  border-radius: 20px;
+  color: $background-dark;
+  background-color: rgba($color: #158463, $alpha: 0.1);
+}
+
+@mixin mobile-tags-not-stocked {
+  height: 24px;
+  width: auto;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  color: white;
+  background-color: rgba($color: #b71c1c, $alpha: 0.7);
+}
+@mixin modal-btn {
+  width: 30px;
+  height: 30px;
+  font-size: 1.125rem;
+  margin: 0 0.625rem;
+  background-color: $accent-color;
+  color: $button-text;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: darken($accent-color, 10%);
+  }
+}

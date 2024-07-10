@@ -1,310 +1,210 @@
-# Project Title
+# StockiStash
 
-StockiStash
+![React](https://img.shields.io/badge/Framework-React-blue?logo=react)
+![MySQL](https://img.shields.io/badge/Database-MySQL-blue?logo=mysql)
+![Express](https://img.shields.io/badge/Backend-Express-yellow?logo=express)
+![JWT](https://img.shields.io/badge/Auth-JWT-green?logo=jsonwebtokens)
+![TailwindCSS](https://img.shields.io/badge/Styles-TailwindCSS-blue?logo=tailwindcss)
 
 ## Overview
 
-StockiStash is a place where employers/management is able to keep track of inventory and have a clear vision of how the storage.
+StockiStash is an inventory management application that allows employers and management to keep track of inventory effectively. It provides a clear vision of the storage, making it easier to manage and maintain the inventory.
 
 ### Problem
 
-In a production environment, one of the crutial points for a steady work-flow is to keep track of the inventory. Especially for small businesses where they can't afford for system storage checking or they have no idea about it. This also helps employees; Sometime, when we use a piece of equipment or maybe a small object that we can't identify. It is important for a visual present of the object in front of the screen along side with its information.
+In a production environment, one crucial aspect of maintaining a steady workflow is tracking inventory. This is particularly challenging for small businesses that cannot afford a sophisticated system for storage checking or are unaware of such systems. StockiStash also aids employees by providing a visual representation of items along with their information, facilitating better management and usage.
 
 ### User Profile
 
-Managements: - checking for inventory quantity - have an idea to see what is about to run out
-Employees: - abilities to have a visual of the items - abilities to take out an item - aibilities to put back an item - able to search for an item
+- **Management:**
+  - Check inventory quantity
+  - Identify items that are running low
+  - Edit and delete items
+
+- **Employees:**
+  - Visualize items
+  - Take out items
+  - Return items
+  - Search for items
 
 ### Features
 
-- As a user, I want to learn more about the items
-- As a user, I want to see how many available items
-- As a user, I want to search for an item
-- As a user, I want to be able to create an account
-- As a user, I want to be able to login to my account
-- As a user, I want to be able to logout of my account
-- As a logged in employee, I want to be able to search for an item
-- As a logged in employee, I want to be able to add an item onto my account
-- As a logged in manager, I want to be able to edit an item in the inventory
-- As a logged in manager, I want to be able to delete an item from the inventory
-- As a logged in employee, I want to be able to see items that are related to my field
-- As a logged in employee, I want to be able to report when an item is about to run out
-- As a logged in employee, I want to be able to see items that are not available
-- As a logged in employee, I want to be able to search for an item
-- As a logged in employee, I will have a limit access to certain item that is not related to my fields
-- As a logged in employee, I will have a daily quantity limited
+- Learn more about items
+- Search for items
+- Dark mode support
+- Create an account
+- Login and logout
+- Inventory management for managers
+- Visual item representation for employees
+- Daily quantity limits for employees
 
 ## Implementation
 
 ### Tech Stack
 
-- React
-- MySQL
-- Express
-- Client libraries:
+- **Frontend:** React, TailwindCSS
+- **Backend:** Express, Knex
+- **Database:** MySQL
+- **Client Libraries:** 
   - react
   - react-router
   - axios
-- Server libraries:
+  - react-toastify
+  - react-slick
+- **Server Libraries:**
   - knex
   - express
-  - bcrypt for password hashing
-  - nodemailer for sending report
+  - fs
+  - jsonwebtoken
+  - cors
+  - dotenv
+  - bcrypt
+  - mysql2
 
 ### APIs
 
-- No external APIs will be used for the first sprint
+- No external APIs are used in the first sprint.
 
 ### Sitemap
 
 - Home page
-- Items page - shows all items
-- Item page - shows a single item
-- Register
-- Login
+- Items page
+- Item detail page
+- Register page
+- Login page
+- Profile page
 
 ### Mockups
 
 #### Home Page
 
-![](./src/assets/mockups/homepage.png)
+![Home Page](./src/assets/mockups/homepage.png)
 
 #### Inventory Page
 
-![](./src/assets/mockups/inventory_page.png)
+![Inventory Page](./src/assets/mockups/inventory_page.png)
 
 #### Register Page
 
-![](./src/assets/mockups/register_page.png)
+![Register Page](./src/assets/mockups/register_page.png)
 
 #### Login Page
 
-![](./src/assets/mockups/login_page.png)
+![Login Page](./src/assets/mockups/login_page.png)
 
 #### Employee Page
 
-![](./src/assets/mockups/employee_view.png)
+![Employee Page](./src/assets/mockups/employee_view.png)
 
-#### Item Details Page
+#### Item Details
 
-![](./src/assets/mockups/item_details.png)
+![Item Details](./src/assets/mockups/item_details.png)
 
-### Data
+#### Edit Item Details
 
-User - id - user_name - password - user_role
-Inventory - id - item_name - description - quantity - item_type - item_status - image
-Report - id - user_id - inventory-id - report_date - report_description
+![Edit Item Details](./src/assets/mockups/edit_item.png)
+
+### Data Model
+
+#### User Table
+| Column     | Type    | Description         |
+|------------|---------|---------------------|
+| id         | INT     | Primary key         |
+| first_name | VARCHAR | User's first name   |
+| last_name  | VARCHAR | User's last name    |
+| user_name  | VARCHAR | User's username     |
+| password   | VARCHAR | User's password     |
+| user_role  | VARCHAR | User's role         |
+
+#### Inventory Table
+| Column       | Type    | Description                 |
+|--------------|---------|-----------------------------|
+| id           | INT     | Primary key                 |
+| user_id      | INT     | References User table       |
+| item_name    | VARCHAR | Name of the item            |
+| description  | TEXT    | Description of the item     |
+| quantity     | INT     | Quantity in stock           |
+| status       | VARCHAR | Stock status                |
+| image        | VARCHAR | Image URL of the item       |
+| link         | VARCHAR | Link to buy the item        |
+
+#### Grit Table
+| Column      | Type    | Description                    |
+|-------------|---------|--------------------------------|
+| id          | INT     | Primary key                    |
+| inventory_id| INT     | References Inventory table     |
+| grit        | VARCHAR | Grit type                      |
+| quantity    | INT     | Quantity in stock              |
+| description | TEXT    | Description of the grit        |
+| image       | VARCHAR | Image URL of the grit          |
+
+#### Cart Table
+| Column        | Type    | Description                |
+|---------------|---------|----------------------------|
+| id            | INT     | Primary key                |
+| user_id       | INT     | References User table      |
+| inventory_id  | INT     | References Inventory table |
+| quantity      | INT     | Quantity in cart           |
 
 ### Endpoints
 
 **GET /inventory**
 
 - Returns all inventory items with their information and status.
-  Parameters:
-
-- Response:
-
-```
-[
-    {
-        "id": 1,
-        "name": "Emery Strips",
-        'description': 'This is a description',
-        "quantity": 500,
-        "grit": 100,
-        "status": 'In Stock'
-        'location': 'This is where to buy not require'
-    },
-    ...
-]
-```
 
 **GET /inventory/:id**
 
-- Returns a single inventory item with its information and limite of how much an employee can withdraw.
-
-- id: item id as number
-- Response:
-
-````
-[
-    {
-        "id": 1,
-        "name": "Emery Strips",
-        'description': 'This is a description',
-        "quantity": 500,
-        "grit": 100,
-        "status": 'In Stock'
-        'limite': 'how much you can take out'
-    },
-    ...
-]
-```
+- Returns a single inventory item with its information.
 
 **POST /inventory**
 
-- Logged in employee is able to report an item that is about to run out.
+- Allows a logged-in user to add an item to their account/cart.
 
-Parameters:
-
-- id: item id
-- token: JWT of the logged in user
-
-Response:
-
-[
-    {
-        "id": 1,
-        "user_id": "1",
-        "inventory_id": "1",
-        'description': 'This is a description',
-        "quantity": 500,
-        "grit": 100,
-        "status": 'Almost run Out'
-    },
-]
 **POST /inventory/:id**
 
-- Logged in manager is able to add an item to inventory.
+- Allows a logged-in manager to add an item to inventory.
 
-Parameters:
+**PUT /inventory/:id**
 
-- id: item id
-- token: JWT of the logged in user
+- Allows a logged-in manager to update an item in inventory.
 
-Response:
-
-[
-    {
-        "id": 1,
-        "user_id": "1",
-        "inventory_id": "1",
-        'description': 'This is a description',
-        "quantity": 500,
-        "grit": 100,
-    },
-]
-
-**PATCH /inventory/edit/:id**
-
-- Logged in management can update an item in inventory.
-
-Parameters:
-
-- id: item id
-- token: JWT of the logged in user
-
-Response:
-
-```
-    {
-        "id": 1,
-        "name": "Emery Strips",
-        'description': 'This is a description',
-        "quantity": 500,
-        "grit": 100,
-        "status": 'In Stock'
-    },
-```
 **POST /users/register**
 
-- Add a user account
-
-Parameters:
-
-- username: User's username
-- password: User's provided password
-- fields : User's fields
-
-Response:
-
-```
-{
-    "token": "seyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I..."
-}
-```
+- Adds a user account.
 
 **POST /users/login**
 
-- Login a user
+- Logs in a user.
 
-Parameters:
+**DELETE /inventory/:id**
 
-- username: User's username
-- password: User's provided password
-- fields : User's fields
-
-Response:
-
-```
-{
-    "token": "seyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6I..."
-}
-```
+- Allows a manager to delete items from inventory.
 
 ### Auth
 
-- JWT auth
-  - Before adding auth, all API requests will be using a fake user with id 1
-  - Added after core features have first been implemented
-  - Store JWT in localStorage, remove when a user logs out
+- JWT authentication
+  - Store JWT in localStorage, remove when a user logs out.
 
 ## Roadmap
 
-- Create client
-
-  - react project with routes and boilerplate pages
-
-- Create server
-
-  - express project with routing, with placeholder 200 responses
-
-- Create migrations
-
-- Create seeds with items and users
-
-- Deploy client and server projects so all commits will be reflected in production
-
-- Feature: Keep track of inventory
-
-  - Show all items in inventory and their status
-  - Create GET /inventory endpoint
-
-- Feature: View item
-
-  - Show an item in detail
-  - Create GET /inventory/:id
-
-- Feature: Report item
-
-  - Add  report feature so an employee can report an item that is about to run out
-  - Create POST /inventory
-
-- Feature: Home page
-
-- Feature: Create account
-
-  - Implement register page + form
-  - Create POST /users/register endpoint
-
-- Feature: Login
-
-  - Implement login page + form
-  - Create POST /users/login endpoint
-
-- Feature: Implement JWT tokens
-
-  - Server: Update expected requests / responses on protected endpoints
-  - Client: Store JWT in local storage, include JWT on axios calls
-
+- Create client and server projects
+- Implement core features
+- Deploy client and server
+- Feature development:
+  - Home page
+  - Inventory tracking
+  - Item details
+  - User account creation
+  - User login
+  - User profile
+  - Implement JWT tokens
 - Bug fixes
-
 - DEMO DAY
 
 ## Nice-to-haves
- - Manager role is able to see how many employees are there
- - Each item has a QR code to scan
- - Have a page dedicate to a tool in the inventory of how to use it
- - Add a forgot password functionality
- - Employee will have a cart and shows how many items has already been taken out
-````
+
+- Manager role can see the number of employees
+- Dedicated page for tool usage
+- Forgot password functionality
+- Reporting features
+

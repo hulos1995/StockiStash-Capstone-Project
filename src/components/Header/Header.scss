@@ -1,0 +1,123 @@
+@use '../../style/partials/__variable' as *;
+@use '../../style/partials/__mixin' as *;
+@use '../../style/partials/__typography' as *;
+@use '../../style/partials/__reset' as *;
+.header {
+  font-family: 'prava';
+  position: relative;
+  z-index: 1;
+  background-color: $background-light;
+  color: $text-primary;
+  &__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    height:10dvh;
+  }
+  &--dark {
+    background-color: $background-dark;
+    color: $text-secondary;
+  }
+  &__logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    &-img {
+      width: 180px;
+    }
+  }
+  &__sidebar-toggle {
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  &__content {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-color: inherit;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+     visibility: hidden;
+    padding-top: 0;     
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    &--visible {
+      visibility: visible;
+      transform: translateX(-50%) translateY(100%);
+      opacity: 1;
+      pointer-events: auto;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+    }
+  }
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.5rem;
+    line-height: 1.5rem;
+    font-size: 0.75rem;
+    @include desktop {
+      flex-direction: row;
+      gap: 3rem;
+      padding-top: 1.75rem;
+      font-size: 1rem;
+    }
+    &-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+    &-item {
+      margin: 0;
+      position: relative;
+      &--active {
+        border-bottom: 2px solid $accent-color;
+      }
+    }
+    &-link {
+      text-decoration: none;
+      color: inherit;
+      font-size: 0.75rem;
+      @include tablet {
+        font-size: 1rem;
+      }
+      &:hover {
+        color: $accent-color;
+      }
+    }
+  }
+  &__dark-mode-toggle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    &-input {
+      cursor: pointer;
+    }
+  }
+  &__profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    &-img {
+      width: 20px;
+      @include tablet {
+        width: 24px;
+      }
+    }
+  }
+}
