@@ -23,6 +23,28 @@
     background-color: $background-light;
     color: $text-primary;
   }
+  &__add{
+  &-item{
+    margin-bottom: 2rem;
+  }
+  &-button{
+    background-color: #3182ce;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      background-color: #2b6cb0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+    }
+  }}
   &__search {
     &-bar {
       position: relative;
