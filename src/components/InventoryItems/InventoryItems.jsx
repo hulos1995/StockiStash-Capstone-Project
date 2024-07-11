@@ -8,6 +8,7 @@ import AddInventoryItemModal from '../../components/AddInventoryItemModal/AddInv
 import search from '../../assets/images/search-left.jpg';
 
 const InventoryItems = ({
+  handleReportItem,
   isDarkMode,
   filteredInventoryData,
   userRole,
@@ -107,6 +108,9 @@ const InventoryItems = ({
                     <p className='inventory__item-description'>
                       Status: <span className={`inventory__item-status ${item.status === 'Out of Stock' ? 'inventory__item-status--outstock' : 'inventory__item-status--instock'}`}>{item.status}</span>
                     </p>
+                    <button onClick={() => handleReportItem(item.id)} className="report-button">
+                          Report
+                        </button>
                   </div>
                   {userRole === 'Admin' && (
                     <div className='inventory__item-links'>

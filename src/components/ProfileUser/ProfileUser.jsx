@@ -1,11 +1,26 @@
+import { useState } from 'react';
 import remove from '../../assets/images/remove.png';
 
-const ProfileUser = ({userData,handleLogout,toggleCart,showCart,cartItems,handleDecrese
-    ,handleIncrease,
-    handleRemove}) => {
+const ProfileUser = ({
+  userData,
+  handleLogout,
+  toggleCart,
+  showCart,
+  cartItems,
+  handleDecrese,
+  handleIncrease,
+  handleRemove,
+  notifications
+}) => {
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+  };
+
   return (
     <>
-    {userData ? (
+      {userData ? (
         <div className='bg-white dark:bg-gray-300 shadow-lg rounded-lg p-4 sm:p-6'>
           <div className='flex flex-col sm:flex-row items-center'>
             <div className='w-20 h-20 sm:w-20 sm:h-20 rounded-full bg-gray-400 flex items-center justify-center text-xl sm:text-2xl text-white font-bold mb-4 sm:mb-0'>
@@ -83,12 +98,48 @@ const ProfileUser = ({userData,handleLogout,toggleCart,showCart,cartItems,handle
               )}
             </div>
           )}
+          {userData.user_role === 'Admin' && (
+            <div className='mt-4'>
+              <button
+                className='bg-blue-500 text-white py-2 px-4 rounded'
+                onClick={toggleNotifications}
+              >
+                {showNotifications ? 'Hide' : 'Show'} Notifications
+              </button>
+              {showNotifications && (
+                <div className='bg-white dark:bg-gray-300 shadow-lg rounded-lg p-4 sm:p-6 mt-4'>
+                  <h2 className='text-xl sm:text-2xl font-bold mb-4'>Notifications</h2>
+                  {notifications.length > 0 ? (
+                    <ul>
+                      {notifications.map((notification) => (
+                        <li key={notification.id} className='mb-2'>
+                          <div className='flex items-center'>
+                            <img 
+                              src={notification.image} 
+                              alt={notification.item_name} 
+                              className='w-10 h-10 mr-2' 
+                            />
+                            <div className='flex flex-col'>
+                              <p>{notification.item_name}</p>
+                              <h3 className='text-gray-500 text-sm'>{new Date(notification.created_at).toLocaleString()}</h3>
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <p>No notifications</p>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       ) : (
         <p className='text-center'>Loading user data...</p>
       )}
-</>
-  )
-}
+    </>
+  );
+};
 
-export default ProfileUser
+export default ProfileUser;

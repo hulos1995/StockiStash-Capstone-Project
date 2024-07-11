@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../../utils/axiosInstance';
 import InventoryPage from '../InventoryPage/InventoryPage';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -9,7 +9,7 @@ const ProfilePage = ({ isDarkMode, authToken }) => {
   const [userData, setUserData] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [showCart, setShowCart] = useState(false);
-  const base_URL = import.meta.env.VITE_API_URL;
+  const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,45 +21,74 @@ const ProfilePage = ({ isDarkMode, authToken }) => {
         return;
       }
       try {
-        const response = await axios.get(`${base_URL}/profile`, {
+        const response = await axiosInstance.get('/profile', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUserData(response.data);
-        getCartItems();
+        getCartItems(token);
+        fetchNotifications(token);
       } catch (error) {
         console.error('Error fetching user data:', error);
         toast.error('Failed to fetch user data');
       }
     };
 
-    const getCartItems = async () => {
-      const token = localStorage.getItem('authToken');
-      try {
-        const res = await axios.get(`${base_URL}/cart`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setCartItems(res.data);
-      } catch (error) {
-        console.error('Error fetching cart items:', error);
-      }
-    };
-
     fetchUserData();
-  }, [base_URL, authToken, navigate]);
+  }, [navigate]);
 
+  // Fetch cart items 
+  const getCartItems = async (token) => {
+    if (!token) {
+      console.error('No authentication token found');
+      return;
+    }
+    try {
+      const res = await axiosInstance.get('/cart', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setCartItems(res.data);
+    } catch (error) {
+      console.error('Error fetching cart items:', error);
+    }
+  };
+
+  // Fetch notifications 
+  const fetchNotifications = async (token) => {
+    if (!token) {
+      console.error('No authentication token found');
+      return;
+    }
+    try {
+      const res = await axiosInstance.get('/notifications', {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setNotifications(res.data);
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+      toast.error('Failed to fetch notifications');
+    }
+  };
+
+  // Handle user logout
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     navigate('/login');
   };
 
+  // Toggle the visibility of the cart
   const toggleCart = () => {
     setShowCart(!showCart);
   };
 
+  // Update cart items after an action is performed
   const updateCartItems = async () => {
     const token = localStorage.getItem('authToken');
+    if (!token) {
+      console.error('No authentication token found');
+      return;
+    }
     try {
-      const res = await axios.get(`${base_URL}/cart`, {
+      const res = await axiosInstance.get('/cart', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCartItems(res.data);
@@ -68,31 +97,46 @@ const ProfilePage = ({ isDarkMode, authToken }) => {
     }
   };
 
+  // Increase the quantity of an item in the cart
   const handleIncrease = async (inventory_id) => {
     const token = localStorage.getItem('authToken');
+    if (!token) {
+      console.error('No authentication token found');
+      return;
+    }
     try {
-      await axios.put(`${base_URL}/cart/increment`, { inventory_id }, { headers: { Authorization: `Bearer ${token}` } });
+      await axiosInstance.put('/cart/increment', { inventory_id }, { headers: { Authorization: `Bearer ${token}` } });
       updateCartItems();
     } catch (error) {
       console.error('Error incrementing item quantity:', error);
     }
   };
 
+  // Decrease the quantity of an item in the cart
   const handleDecrese = async (inventory_id, currentQuantity) => {
     if (currentQuantity <= 1) return;
     const token = localStorage.getItem('authToken');
+    if (!token) {
+      console.error('No authentication token found');
+      return;
+    }
     try {
-      await axios.put(`${base_URL}/cart/decrement`, { inventory_id }, { headers: { Authorization: `Bearer ${token}` } });
+      await axiosInstance.put('/cart/decrement', { inventory_id }, { headers: { Authorization: `Bearer ${token}` } });
       updateCartItems();
     } catch (error) {
       console.error('Error decrementing item quantity:', error);
     }
   };
 
+  // Remove an item from the cart
   const handleRemove = async (inventory_id) => {
     const token = localStorage.getItem('authToken');
+    if (!token) {
+      console.error('No authentication token found');
+      return;
+    }
     try {
-      await axios.delete(`${base_URL}/cart/${inventory_id}`, {
+      await axiosInstance.delete(`/cart/${inventory_id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       updateCartItems();
@@ -104,14 +148,17 @@ const ProfilePage = ({ isDarkMode, authToken }) => {
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'} p-4`}>
       <div className='max-w-full sm:max-w-4xl mx-auto'>
-        <ProfileUser userData={userData}
+        <ProfileUser
+          userData={userData}
           cartItems={cartItems}
           showCart={showCart}
           handleLogout={handleLogout}
           toggleCart={toggleCart}
           handleIncrease={handleIncrease}
           handleDecrese={handleDecrese}
-          handleRemove={handleRemove}/>
+          handleRemove={handleRemove}
+          notifications={notifications}
+        />
         <div className='mt-7 rounded-2xl'>
           {userData && (
             <InventoryPage
