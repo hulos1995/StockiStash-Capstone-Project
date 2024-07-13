@@ -12,7 +12,8 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [showItemModal, setShowItemModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false); // Add state for delete modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showAddModal, setShowAddModal] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [userRole, setUserRole] = useState('guest');
   const base_URL = import.meta.env.VITE_API_URL;
@@ -89,6 +90,14 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
     setShowDeleteModal(false);
   };
 
+  const handleShowAddModal = () => {
+    setShowAddModal(true);
+  };
+
+  const handleCloseAddModal = () => {
+    setShowAddModal(false);
+  };
+
   const handleDeleteItem = async () => {
     const token = localStorage.getItem('authToken');
     try {
@@ -105,6 +114,39 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
     }
   };
 
+  const handleAddInventoryItem = async (formData) => {
+    try {
+      const token = localStorage.getItem('authToken'); await axios.post(
+        `${base_URL}/inventory`,
+        formData,
+        {
+          headers: { 
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+          },
+        }
+      );
+      toast.success("Inventory item added successfully");
+      getItemData(); 
+      handleCloseAddModal(); 
+    } catch (error) {
+      console.error("Error adding inventory item:", error);
+      toast.error("Failed to add inventory item");
+    }
+  };
+  const handleReportItem = async (itemId) => {
+    const token = localStorage.getItem('authToken');
+    try {
+      await axios.post(
+        `${base_URL}/notifications/report`,
+        { item_id: itemId, message: 'Item is about to run out' },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success("Report has been sent!");
+    } catch (error) {
+      console.error("Error reporting item:", error);
+    }
+  };
   const handleSearchChange = (e) => {
     setSearchInput(e.target.value);
   };
@@ -116,12 +158,13 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
   //Conditioning check for user, logged in roles
   //user can only see certain things, logged in user can see more things and admin can see all inventory
   return (
+    <>
       <InventoryItems 
-      isDarkMode={isDarkMode}
-      updateCartItems={updateCartItems}
-      getItemData={getItemData}
-      selectedItem={selectedItem}
-      searchInput={searchInput}
+        isDarkMode={isDarkMode}
+        updateCartItems={updateCartItems}
+        getItemData={getItemData}
+        selectedItem={selectedItem}
+        searchInput={searchInput}
         showEditModal={showEditModal}
         showDeleteModal={showDeleteModal}
         handleCloseItemModal={handleCloseItemModal}
@@ -129,12 +172,19 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
         handleCloseDeleteModal={handleCloseDeleteModal}
         handleDeleteItem={handleDeleteItem}
         handleSearchChange={handleSearchChange}
-        userRole = {userRole}
+        userRole={userRole}
         showItemModal={showItemModal}
         handleShowItemModal={handleShowItemModal}
         handleShowEditModal={handleShowEditModal}
         handleShowDeleteModal={handleShowDeleteModal}
-        filteredInventoryData={filteredInventoryData} />
+        filteredInventoryData={filteredInventoryData}
+        handleShowAddModal={handleShowAddModal} 
+        handleAddInventoryItem={handleAddInventoryItem} 
+        showAddModal={showAddModal} 
+        handleCloseAddModal={handleCloseAddModal} 
+        handleReportItem={handleReportItem}
+      />
+    </>
   );
 };
 
