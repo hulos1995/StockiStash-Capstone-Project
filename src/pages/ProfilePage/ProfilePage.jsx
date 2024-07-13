@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import InventoryPage from '../InventoryPage/InventoryPage';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import ProfileUser from '../../components/ProfileUser/ProfileUser';
 
 const ProfilePage = ({ isDarkMode, authToken }) => {
   const [userData, setUserData] = useState(null);
   const [cartItems, setCartItems] = useState([]);
   const [showCart, setShowCart] = useState(false);
+  const [notifications, setNotifications] = useState([]);
   const base_URL = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
 
@@ -26,9 +26,11 @@ const ProfilePage = ({ isDarkMode, authToken }) => {
         });
         setUserData(response.data);
         getCartItems();
-      } catch (error) {
+        if (response.data.user_role === 'Admin') {
+          fetchNotifications();
+          setInterval(fetchNotifications, 3000); 
+        }      } catch (error) {
         console.error('Error fetching user data:', error);
-        toast.error('Failed to fetch user data');
       }
     };
 
@@ -43,6 +45,29 @@ const ProfilePage = ({ isDarkMode, authToken }) => {
         console.error('Error fetching cart items:', error);
       }
     };
+
+    const fetchNotifications = async () => {
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        console.error('No authentication token found');
+        return;
+      }
+      try {
+        const res = await axios.get(`${base_URL}/notifications`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setNotifications(res.data);
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          console.error('Unauthorized, redirecting to login');
+          localStorage.removeItem('authToken');
+          navigate('/login');
+        } else {
+          console.error('Error fetching notifications:', error);
+        }
+      }
+    };
+    
 
     fetchUserData();
   }, [base_URL, authToken, navigate]);
@@ -104,14 +129,17 @@ const ProfilePage = ({ isDarkMode, authToken }) => {
   return (
     <div className={`min-h-screen ${isDarkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-900'} p-4`}>
       <div className='max-w-full sm:max-w-4xl mx-auto'>
-        <ProfileUser userData={userData}
+        <ProfileUser
+          userData={userData}
           cartItems={cartItems}
           showCart={showCart}
           handleLogout={handleLogout}
           toggleCart={toggleCart}
           handleIncrease={handleIncrease}
           handleDecrese={handleDecrese}
-          handleRemove={handleRemove}/>
+          handleRemove={handleRemove}
+          notifications={notifications} 
+        />
         <div className='mt-7 rounded-2xl'>
           {userData && (
             <InventoryPage

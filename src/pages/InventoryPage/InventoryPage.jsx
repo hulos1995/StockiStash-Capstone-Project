@@ -134,7 +134,19 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
       toast.error("Failed to add inventory item");
     }
   };
-  
+  const handleReportItem = async (itemId) => {
+    const token = localStorage.getItem('authToken');
+    try {
+      await axios.post(
+        `${base_URL}/notifications/report`,
+        { item_id: itemId, message: 'Item is about to run out' },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.success("Report has been sent!");
+    } catch (error) {
+      console.error("Error reporting item:", error);
+    }
+  };
   const handleSearchChange = (e) => {
     setSearchInput(e.target.value);
   };
@@ -170,6 +182,7 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
         handleAddInventoryItem={handleAddInventoryItem} 
         showAddModal={showAddModal} 
         handleCloseAddModal={handleCloseAddModal} 
+        handleReportItem={handleReportItem}
       />
     </>
   );
