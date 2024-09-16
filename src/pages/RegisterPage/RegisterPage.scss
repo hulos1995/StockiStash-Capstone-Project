@@ -1,9 +1,9 @@
-@use "../../style/partials/__variable" as *;
-@use "../../style/partials/__mixin" as *;
-@use "../../style/partials/__typography" as *;
-@use "../../style/partials/__reset" as *;
+@use '../../style/partials/__variable' as *;
+@use '../../style/partials/__mixin' as *;
+@use '../../style/partials/__typography' as *;
+@use '../../style/partials/__reset' as *;
 .register {
-  font-family: "prata";
+  font-family: 'prata';
   height: 90vh;
   display: flex;
   align-items: center;
@@ -46,8 +46,7 @@
       position: relative;
       background-color: #fff;
       border-radius: 25px;
-      // height:83.5%;
-      height:69%;
+      height: 83.5%;
     }
     &-content {
       display: flex;
@@ -218,16 +217,16 @@
     margin-top: 1rem;
     text-align: center;
     top: 2.5rem;
-    font-size: 0.875rem;      
-    width:70%;
-    left:3rem;
+    font-size: 0.875rem;
+    width: 70%;
+    left: 3rem;
     @include tablet {
-      top: 3rem;      
-      left:5rem;
+      top: 3rem;
+      left: 5rem;
     }
     @include desktop {
       position: relative;
-      top: 0;
+      top: -5px;
     }
     &-link {
       cursor: pointer;
