@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import './InventoryPage.scss';
 import { decodeToken } from '../../utils/decodeToken';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import InventoryItems from '../../components/InventoryItems/InventoryItems';
 
 const InventoryPage = ({ isDarkMode, updateCartItems }) => {
@@ -108,7 +107,7 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
       });
       setShowDeleteModal(false);
       getItemData();
-      toast.success("Delete successful!")
+      toast.success('Delete successful!');
     } catch (error) {
       console.error('Error deleting inventory item:', error);
     }
@@ -116,22 +115,19 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
 
   const handleAddInventoryItem = async (formData) => {
     try {
-      const token = localStorage.getItem('authToken'); await axios.post(
-        `${base_URL}/inventory`,
-        formData,
-        {
-          headers: { 
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data'
-          },
-        }
-      );
-      toast.success("Inventory item added successfully");
-      getItemData(); 
-      handleCloseAddModal(); 
+      const token = localStorage.getItem('authToken');
+      await axios.post(`${base_URL}/inventory`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      toast.success('Inventory item added successfully');
+      getItemData();
+      handleCloseAddModal();
     } catch (error) {
-      console.error("Error adding inventory item:", error);
-      toast.error("Failed to add inventory item");
+      console.error('Error adding inventory item:', error);
+      toast.error('Failed to add inventory item');
     }
   };
   const handleReportItem = async (itemId) => {
@@ -142,9 +138,9 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
         { item_id: itemId, message: 'Item is about to run out' },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      toast.success("Report has been sent!");
+      toast.success('Report has been sent!');
     } catch (error) {
-      console.error("Error reporting item:", error);
+      console.error('Error reporting item:', error);
     }
   };
   const handleSearchChange = (e) => {
@@ -153,13 +149,15 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
 
   //filter item by name for search bar
   //source https://www.youtube.com/watch?v=xAqCEBFGdYk&t=339s
-  const filteredInventoryData = inventoryData.filter((item) => item.item_name.toLowerCase().includes(searchInput.toLowerCase()));
+  const filteredInventoryData = inventoryData.filter((item) =>
+    item.item_name.toLowerCase().includes(searchInput.toLowerCase())
+  );
 
   //Conditioning check for user, logged in roles
   //user can only see certain things, logged in user can see more things and admin can see all inventory
   return (
     <>
-      <InventoryItems 
+      <InventoryItems
         isDarkMode={isDarkMode}
         updateCartItems={updateCartItems}
         getItemData={getItemData}
@@ -178,10 +176,10 @@ const InventoryPage = ({ isDarkMode, updateCartItems }) => {
         handleShowEditModal={handleShowEditModal}
         handleShowDeleteModal={handleShowDeleteModal}
         filteredInventoryData={filteredInventoryData}
-        handleShowAddModal={handleShowAddModal} 
-        handleAddInventoryItem={handleAddInventoryItem} 
-        showAddModal={showAddModal} 
-        handleCloseAddModal={handleCloseAddModal} 
+        handleShowAddModal={handleShowAddModal}
+        handleAddInventoryItem={handleAddInventoryItem}
+        showAddModal={showAddModal}
+        handleCloseAddModal={handleCloseAddModal}
         handleReportItem={handleReportItem}
       />
     </>

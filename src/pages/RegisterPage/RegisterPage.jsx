@@ -1,17 +1,17 @@
-import { useState } from "react";
-import "./RegisterPage.scss";
-import axios from "axios";
-import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
-import logo from "../../assets/images/register-logo.jpg";
+import { useState } from 'react';
+import './RegisterPage.scss';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
+import logo from '../../assets/images/register-logo.jpg';
 const RegisterPage = ({ isDarkMode }) => {
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-    role: "admin",
+    firstname: '',
+    lastname: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
+    role: 'admin',
   });
   const [showPassword, setShowPassword] = useState(false);
   const base_URL = import.meta.env.VITE_API_URL;
@@ -23,7 +23,7 @@ const RegisterPage = ({ isDarkMode }) => {
 
   const handleRegister = async () => {
     if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match");
+      toast.error('Passwords do not match');
       return;
     }
 
@@ -35,9 +35,9 @@ const RegisterPage = ({ isDarkMode }) => {
         password: formData.password,
         user_role: formData.role,
       });
-      toast.success("User registered successfully");
+      toast.success('User registered successfully');
     } catch (error) {
-      toast.error(error.response?.data || "Error registering user");
+      toast.error(error.response?.data || 'Error registering user');
     }
   };
 
@@ -47,110 +47,110 @@ const RegisterPage = ({ isDarkMode }) => {
   return (
     <section
       className={`register ${
-        isDarkMode ? "register--dark" : "register--light"
+        isDarkMode ? 'register--dark' : 'register--light'
       }`}
     >
-      <div className="register__form">
-        <img className="register__logo" src={logo} alt={`${logo} logo`} />
-        <div className="register__title">
-          <h1 className="register__title-text">Register</h1>
+      <div className='register__form'>
+        <img className='register__logo' src={logo} alt={`${logo} logo`} />
+        <div className='register__title'>
+          <h1 className='register__title-text'>Register</h1>
         </div>
-        <form className="register__form-content">
-          <div className="register__input-boxes">
-            <div className="register__input-box">
-              <i className="register__input-name">First Name</i>
+        <form className='register__form-content'>
+          <div className='register__input-boxes'>
+            <div className='register__input-box'>
+              <i className='register__input-name'>First Name</i>
               <input
-                className="register__input-type"
-                type="text"
-                name="firstname"
-                placeholder="Enter your first name"
+                className='register__input-type'
+                type='text'
+                name='firstname'
+                placeholder='Enter your first name'
                 required
                 value={formData.firstname}
                 onChange={handleInputChange}
               />
             </div>
-            <div className="register__input-box">
-              <i className="register__input-name">Last Name</i>
+            <div className='register__input-box'>
+              <i className='register__input-name'>Last Name</i>
               <input
-                className="register__input-type"
-                type="text"
-                name="lastname"
-                placeholder="Enter your last name"
+                className='register__input-type'
+                type='text'
+                name='lastname'
+                placeholder='Enter your last name'
                 required
                 value={formData.lastname}
                 onChange={handleInputChange}
               />
             </div>
-            <div className="register__input-box">
-              <i className="register__input-name">User Name</i>
+            <div className='register__input-box'>
+              <i className='register__input-name'>User Name</i>
               <input
-                className="register__input-type"
-                type="text"
-                name="username"
-                placeholder="Enter your email"
+                className='register__input-type'
+                type='text'
+                name='username'
+                placeholder='Enter your email'
                 required
                 value={formData.username}
                 onChange={handleInputChange}
               />
             </div>
-            <div className="register__input-box">
-              <i className="register__input-name">Password</i>
+            <div className='register__input-box'>
+              <i className='register__input-name'>Password</i>
               <input
-                className="register__input-type"
-                type={showPassword ? "text" : "password"}
-                name="password"
-                placeholder="Enter your password"
+                className='register__input-type'
+                type={showPassword ? 'text' : 'password'}
+                name='password'
+                placeholder='Enter your password'
                 required
                 value={formData.password}
                 onChange={handleInputChange}
               />
             </div>
-            <div className="register__input-box">
-              <i className="register__input-name">Confirm Password</i>
+            <div className='register__input-box'>
+              <i className='register__input-name'>Confirm Password</i>
               <input
-                className="register__input-type"
-                type={showPassword ? "text" : "password"}
-                name="confirmPassword"
-                placeholder="Confirm your password"
+                className='register__input-type'
+                type={showPassword ? 'text' : 'password'}
+                name='confirmPassword'
+                placeholder='Confirm your password'
                 required
                 value={formData.confirmPassword}
                 onChange={handleInputChange}
               />
             </div>
-            <label className="register__input-password">
+            <label className='register__input-password'>
               Show Password
               <input
-                className="register__input-check"
-                type="checkbox"
+                className='register__input-check'
+                type='checkbox'
                 checked={showPassword}
                 onChange={toggleShowPassword}
               />
             </label>
-            <div className="register__input-container">
-              <div className="register__input-box">
+            <div className='register__input-container'>
+              <div className='register__input-box'>
                 <select
-                  name="role"
+                  name='role'
                   value={formData.role}
                   onChange={handleInputChange}
-                  className="register__input-type-select"
+                  className='register__input-type-select'
                 >
-                  <option value="admin">Admin</option>
-                  <option value="polisher">Mold Polisher</option>
-                  <option value="spotter">Spotter</option>
+                  <option value='admin'>Admin</option>
+                  <option value='polisher'>Mold Polisher</option>
+                  <option value='spotter'>Spotter</option>
                 </select>
               </div>
               <Link to={`/login`}>
-                <div className="register__btn">
+                <div className='register__btn'>
                   <input
-                    className="register__btn-input"
-                    type="button"
-                    value="Register"
+                    className='register__btn-input'
+                    type='button'
+                    value='Register'
                     onClick={handleRegister}
                   />
                 </div>
-                <div className="register__text">
-                  Already have an account?{" "}
-                  <span className="register__text-link">Login now</span>
+                <div className='register__text'>
+                  Already have an account?{' '}
+                  <span className='register__text-link'>Login now</span>
                 </div>
               </Link>
             </div>
